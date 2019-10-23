@@ -8,7 +8,12 @@ body {
 
 .navbar-content {
     font-size: small;
-    display: inline;
+    max-height: 0;
+    overflow: hidden;
+}
+
+input:checked ~ .navbar-content {
+    max-height: 100%;
 }
 
 nav {
@@ -19,7 +24,6 @@ nav {
     left: 0;
     background-color: #c4302b;
     display: inline-block;
-    font-size: small;
 }
 
 ul {
@@ -35,8 +39,20 @@ ul {
     color: black;
 }
 
-i {
+label {
+    font-size: 2em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+}
 
+label:hover {
+    background-color: #8b2b1e;
+}
+
+input#menu {
+    display: none;
 }
 
 h1, h2 {
