@@ -9,9 +9,12 @@
     <meta name="description" content="Find never before seen YouTube videos by topic">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!--Stylesheet link(s)-->
+    <!--Stylesheet link-->
     <link rel="stylesheet" href="./css/style.css">
 
+    <!--Google Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700|Open+Sans:300&display=swap" rel="stylesheet">
+    
     <!--Font Awesome-->
     <script src="https://use.fontawesome.com/a3bd14d02e.js"></script>
 
@@ -22,11 +25,18 @@
 <body>
     <nav>
         <div class="navbar">
-            <ul>
-                <li><i class="fa fa-bars" aria-hidden="true"></i></li>
-                <li><a href="stage-0-topic-proposal-poojaram/#descr">How to Start</a></li>
-                <li><a href="stage-0-topic-proposal-poojaram/#watch">Watch Now</a></li>
-            </ul>
+            <input type="checkbox" id="menu">
+            <label for="menu">Menu</label>
+            <div class="navbar-content">
+                <!--i class="fa fa-bars" aria-hidden="true"></i>-->
+                <ul>
+                    <!--stage-0-topic-proposal-poojaram/-->
+                    <li><a href="#descr">About</a></li>
+                    <li><a href="#watch">Watch</a></li>
+                    <li><a href="#contact">Contact</a></li>
+
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -34,7 +44,7 @@
         <!--Website Description-->
         <section id="descr" aria-label="Website description">
             <h1>DiscoverTube</h1>
-            <p>description</p>
+            <p>Discover a world of unseen footage with <em>DiscoverTube</em>. </p>
         </section>
 
         <!--Recreational Topics-->
@@ -132,7 +142,7 @@
             </section>
         </section>
     </main>
-    <footer>
+    <footer id="contact">
         <address>
             Contact by email at <a href="mailto:willrod@uw.edu">willrod@uw.edu</a>
         </address> 
