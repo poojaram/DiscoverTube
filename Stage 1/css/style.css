@@ -8,6 +8,11 @@
 }
 
 nav {
+    position: fixed;
+    width: 100%;
+    padding: .75rem;
+    top: 0;
+    left: 0;
     background-color: #c4302b;
 }
 
@@ -16,7 +21,6 @@ ul {
     margin: 0;
     padding: 0;
     padding-top: 0.5em;
-
 }
 
 li {
@@ -26,6 +30,10 @@ li {
 
 li a {
     display: none;
+}
+
+ul li i {
+    padding-left: 0.5em;
 }
 
 h2 {
@@ -41,10 +49,24 @@ h2 {
 
 .flex-item {
     flex: 0 0 280px;
-    background-color: #eee;
-    padding: 1em;
     margin: 0.75em;
     height: 300px;
+    text-align: center;
+}
+
+p {
+    margin-top: 0;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.flex-item:hover .card-title {
+    background-color: rgba(94, 94, 94, 0.473)
+}
+
+footer {
+    background-color: #c4302b;
+    padding: 0.5em;
 }
 
 /* Add pictures to each category */
@@ -164,38 +186,4 @@ h2 {
     background-position: center;
     font-size: 1.5em;
     padding-top: 0;
-}
-
-ul li i {
-    padding-left: 1em;
-}
-
-#film:hover {
-    color: #c4302b
-    align-content: center;
-}
-
-#music:hover {
-    color: #c4302b;
-    align-items: center
-}
-
-#pets:hover {
-    
-}
-
-#sports:hover{
-
-}
-
-#gaming:hover {
-    
-}
-
-#people:hover {
-
-}
-
-#comedy:hover {
-
 }
