@@ -4,6 +4,7 @@
 
 .navbar {
     display: inline-block;
+    font-size: 2.5em;
 }
 
 ul {
@@ -17,6 +18,10 @@ ul {
 li {
     display: inline;
     margin-right: 1em;
+}
+
+li a {
+    display: none;
 }
 
 h2 {
