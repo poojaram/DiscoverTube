@@ -7,6 +7,10 @@
     font-size: 2.5em;
 }
 
+nav {
+    background-color: #c4302b;
+}
+
 ul {
     display: inline-block;
     margin: 0;
@@ -48,86 +52,150 @@ h2 {
     background-image: url("../img/film.jpg");
     background-size: cover;
     background-position: center;
+    font-size: 1.5em;
+    padding-top: 0;
 }
 
 #music {
     background-image: url("../img/music.jpg");
     background-size: cover;
+    font-size: 1.5em;
+    padding-top: 0;
 }
 
 #pets {
     background-image: url("../img/pets_2.png");
     background-size: cover;
     background-position: center;
+    font-size: 1.5em;
+    padding-top: 0;
 }
 
 #sports {
     background-image: url("../img/sports.jpg");
     background-size: cover;
     background-position: center;
+    font-size: 1.5em;
+    padding-top: 0;
 }
 
 #gaming {
     background-image: url("../img/gaming.jpg");
     background-size: cover;
     background-position: center;
+    font-size: 1.5em;
+    padding-top: 0;
 }
 
 #people {
     background-image: url("../img/people.jpg");
     background-size: cover;
     background-position: center;
+    font-size: 1.5em;
+    padding-top: 0;
 }
 
 #comedy {
     background-image: url("../img/comedy.jpg");
     background-size: cover;
     background-position: center;
+    font-size: 1.5em;
+    padding-top: 0;
 }
 
 #entertain {
     background-image: url("../img/entertainment.jpg");
     background-size: cover;
+    font-size: 1.5em;
+    padding-top: 0;
 }
 
 #travel {
     background-image: url("../img/travel.jpg");
     background-size: cover;
     background-position: center;
+    font-size: 1.5em;
+    padding-top: 0;
 }
 
 #autos {
     background-image: url("../img/autos.jpg");
     background-size: cover;
     background-position: center;
+    font-size: 1.5em;
+    padding-top: 0;
 }
 
 #news {
     background-image: url("../img/news.jpg");
     background-size: cover;
     background-position: center;
+    font-size: 1.5em;
+    padding-top: 0;
 }
 
 #howto {
     background-image: url("../img/howto.jpg");
     background-size: cover;
     background-position: center;
+    font-size: 1.5em;
+    padding-top: 0;
 }
 
 #education {
     background-image: url("../img/education.jpg");
     background-size: cover;
     background-position: center;
+    font-size: 1.5em;
+    padding-top: 0;
 }
 
 #science {
     background-image: url("../img/science.jpg");
     background-size: cover;
     background-position: center;
+    font-size: 1.5em;
+    padding-top: 0;
 }
 
 #nonprofit {
     background-image: url("../img/nonprofit.jpg");
     background-size: cover;
     background-position: center;
+    font-size: 1.5em;
+    padding-top: 0;
+}
+
+ul li i {
+    padding-left: 1em;
+}
+
+#film:hover {
+    color: #c4302b
+    align-content: center;
+}
+
+#music:hover {
+    color: #c4302b;
+    align-items: center
+}
+
+#pets:hover {
+    
+}
+
+#sports:hover{
+
+}
+
+#gaming:hover {
+    
+}
+
+#people:hover {
+
+}
+
+#comedy:hover {
+
 }
