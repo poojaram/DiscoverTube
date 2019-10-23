@@ -37,3 +37,92 @@ h2 {
     margin: 0.75em;
     height: 300px;
 }
+
+/* Add pictures to each category */
+#film {
+    background-image: url("../img/film.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#music {
+    background-image: url("../img/music.jpg");
+    background-size: cover;
+}
+
+#pets {
+    background-image: url("../img/pets_2.png");
+    background-size: cover;
+    background-position: center;
+}
+
+#sports {
+    background-image: url("../img/sports.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#gaming {
+    background-image: url("../img/gaming.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#people {
+    background-image: url("../img/people.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#comedy {
+    background-image: url("../img/comedy.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#entertain {
+    background-image: url("../img/entertainment.jpg");
+    background-size: cover;
+}
+
+#travel {
+    background-image: url("../img/travel.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#autos {
+    background-image: url("../img/autos.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#news {
+    background-image: url("../img/news.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#howto {
+    background-image: url("../img/howto.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#education {
+    background-image: url("../img/education.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#science {
+    background-image: url("../img/science.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#nonprofit {
+    background-image: url("../img/nonprofit.jpg");
+    background-size: cover;
+    background-position: center;
+}
