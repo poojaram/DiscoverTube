@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+
+<head profile="http://www.w3.org/2005/10/profile">
     <!--Metadata-->
     <meta charset="utf-8">
     <meta name="author" content="Pooja Ramanathan">
@@ -8,18 +9,22 @@
     <meta name="keywords" content="YouTube,videos,0 views,no views,unseen,discover,discovertube">
     <meta name="description" content="Find never before seen YouTube videos by topic">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!--Stylesheet link-->
     <link rel="stylesheet" href="./css/style.css">
 
     <!--Google Fonts-->
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700|Open+Sans:300&display=swap" rel="stylesheet">
-    
+
     <!--Font Awesome-->
     <script src="https://use.fontawesome.com/a3bd14d02e.js"></script>
 
     <!--Tab title-->
     <title>DiscoverTube</title>
+
+    <!--Favicon-->
+    <!--"Space and astronomy, telescope icon" by Abderraouf Omara is licensed under CC BY 3.0-->
+    <link rel="icon" type="image/png" href="./img/telescope.png">
 </head>
 
 <body>
@@ -41,62 +46,78 @@
         </div>
     </nav>
 
-    <main>
-        <header>
-            <section id="title" aria-label="title">
-                <div class="title">
-                    <h1>DiscoverTube</h1>
-                    <p class="sub-title">Discover a world of unseen footage</p>
-                </div>
-            </section>
-        </header>
+    <header>
+        <section id="title" aria-label="title">
+            <div class="title">
+                <h1>DiscoverTube</h1>
+                <p class="sub-title">Discover a world of unseen footage</p>
+            </div>
+        </section>
+    </header>
 
+    <main>
         <!--Recreational Topics-->
         <section id="watch">
             <section aria-label="Recreational Topics">
                 <h2>Recreational</h2>
                 <div class="flex-container">
                     <div id="film" class="flex-item">
-                        <div class="card-title">
-                            <h3>Film &amp Animation</h3>
-                        </div>
+                        <a href="interact.html">
+                            <div class="card-title">
+                                <h3>Film &amp Animation</h3>
+                            </div>
+                        </a>
                     </div>
                     <div id="music" class="flex-item">
-                        <div class="card-title">
-                            <h3>Music</h3>
-                        </div>
+                        <a href="interact.html">
+                            <div class="card-title">
+                                <h3>Music</h3>
+                            </div>
+                        </a>
                     </div>
                     <div id="pets" class="flex-item">
-                        <div class="card-title">
-                            <h3>Pets &amp Animals</h3>
-                        </div>
+                        <a href="interact.html">
+                            <div class="card-title">
+                                <h3>Pets &amp Animals</h3>
+                            </div>
+                        </a>
                     </div>
                     <div id="sports" class="flex-item">
-                        <div class="card-title">
-                            <h3>Sports</h3>
-                        </div>
+                        <a href="interact.html">
+                            <div class="card-title">
+                                <h3>Sports</h3>
+                            </div>
+                        </a>
                     </div>
                 </div>
                 <div class="flex-container">
                     <div id="gaming" class="flex-item">
-                        <div class="card-title">
-                            <h3>Gaming</h3>
-                        </div>
+                        <a href="interact.html">
+                            <div class="card-title">
+                                <h3>Gaming</h3>
+                            </div>
+                        </a>
                     </div>
                     <div id="people" class="flex-item">
-                        <div class="card-title">
-                            <h3>People &amp Blogs</h3>
-                        </div>
+                        <a href="interact.html">
+                            <div class="card-title">
+                                <h3>People &amp Blogs</h3>
+                            </div>
+                        </a>
                     </div>
                     <div id="comedy" class="flex-item">
-                        <div class="card-title">
-                            <h3>Comedy</h3>
-                        </div>
+                        <a href="interact.html">
+                            <div class="card-title">
+                                <h3>Comedy</h3>
+                            </div>
+                        </a>
                     </div>
                     <div id="entertain" class="flex-item">
-                        <div class="card-title">
-                            <h3>Entertainment</h3>
-                        </div>
+                        <a href="interact.html">
+                            <div class="card-title">
+                                <h3>Entertainment</h3>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </section>
@@ -106,41 +127,55 @@
                 <h2>Informational</h2>
                 <div class="flex-container">
                     <div id="travel" class="flex-item">
-                        <div class="card-title">
-                            <h3>Travel &amp Events</h3>
-                        </div>
+                        <a href="interact.html">
+                            <div class="card-title">
+                                <h3>Travel &amp Events</h3>
+                            </div>
+                        </a>
                     </div>
                     <div id="autos" class="flex-item">
-                        <div class="card-title">
-                            <h3>Cars</h3>
-                        </div>
+                        <a href="interact.html">
+                            <div class="card-title">
+                                <h3>Cars</h3>
+                            </div>
+                        </a>
                     </div>
                     <div id="news" class="flex-item">
-                        <div class="card-title">
-                            <h3>News &amp Politics</h3>
-                        </div>
+                        <a href="interact.html">
+                            <div class="card-title">
+                                <h3>News &amp Politics</h3>
+                            </div>
+                        </a>
                     </div>
                     <div id="howto" class="flex-item">
-                        <div class="card-title">
-                            <h3>How-to</h3>
-                        </div>
+                        <a href="interact.html">
+                            <div class="card-title">
+                                <h3>How-to</h3>
+                            </div>
+                        </a>
                     </div>
                 </div>
                 <div class="flex-container">
                     <div id="education" class="flex-item">
-                        <div class="card-title">
-                            <h3>Education</h3>
-                        </div>
+                        <a href="interact.html">
+                            <div class="card-title">
+                                <h3>Education</h3>
+                            </div>
+                        </a>
                     </div>
                     <div id="science" class="flex-item">
-                        <div class="card-title">
-                            <h3>Science &amp Technology</h3>
-                        </div>
+                        <a href="interact.html">
+                            <div class="card-title">
+                                <h3>Science &amp Technology</h3>
+                            </div>
+                        </a>
                     </div>
                     <div id="nonprofit" class="flex-item">
-                        <div class="card-title">
-                            <h3>Nonprofits &amp Activism</h3>
-                        </div>
+                        <a href="interact.html">
+                            <div class="card-title">
+                                <h3>Nonprofits &amp Activism</h3>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </section>
@@ -150,20 +185,21 @@
         <section id="descr" aria-label="Website description">
             <div class="container">
                 <h2>About DiscoverTube</h2>
-                <p>Discover a world of unseen footage with <em>DiscoverTube</em>. Watch never 
+                <p>Discover a world of unseen footage with <em>DiscoverTube</em>. Watch never
                     before seen videos from YouTube and be the first in the entire world to ever watch them!</p>
-                
+
                 <h3>What is DiscoverTube?</h3>
-                <p>DiscoverTube allows you to quickly find <em>never before seen</em> YouTube videos related to your 
-                    interests. Specifically DiscoverTube finds YouTube videos with zero views in the category 
+                <p>DiscoverTube allows you to quickly find <em>never before seen</em> YouTube videos related to your
+                    interests. Specifically DiscoverTube finds YouTube videos with zero views in the category
                     of your choice.</p>
 
                 <h3>Simple to Use</h3>
-                <p>With <em>just a few clicks</em> you can find and watch any and every unwatched YouTube video. 
+                <p>With <em>just a few clicks</em> you can find and watch any and every unwatched YouTube video.
                     Finding new content has never been easier.</p>
 
                 <h3>Be the Very First</h3>
-                <p>Be the first to ever watch a video and potentially <em>discover something amazing</em>. Discover something 
+                <p>Be the first to ever watch a video and potentially <em>discover something amazing</em>. Discover
+                    something
                     new right now!</p>
             </div>
         </section>
@@ -173,12 +209,15 @@
         <h3>Connect</h3>
         <address>
             <ul>
-                <li><a class="dot" href="mailto:willrod@uw.edu"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
-                <li><a class="dot" href="https://www.facebook.com"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                <li><a class="dot" href="https://twitter.com"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                <li aria-label="email"><a class="dot" href="mailto:willrod@uw.edu"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                </li>
+                <li aria-label="facebook"><a class="dot" href="https://www.facebook.com"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                </li>
+                <li aria-label="twitter"><a class="dot" href="https://twitter.com"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
             </ul>
-        </address> 
+        </address>
         <p>&copy 2019 DiscoverTube</p>
     </footer>
 </body>
+
 </html>
