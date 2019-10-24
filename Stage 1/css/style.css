@@ -4,7 +4,10 @@
 
 body {
     font-family: 'Open Sans', sans-serif;
+    margin: 0;
 }
+
+/***** Navigation bar *****/
 
 .navbar-content {
     font-size: small;
@@ -14,7 +17,7 @@ body {
 }
 
 input:checked ~ .navbar-content {
-    height: 165px;
+    height: 200px;
 }
 
 nav {
@@ -59,13 +62,15 @@ input#menu {
     display: none;
 }
 
+/***** Title text *****/
+
 h1, h2, h3 {
     font-family: 'Amatic SC', cursive;
 }
 
 h1 {
     margin-top: 1.5em;
-    margin-bottom: 0;;
+    margin-bottom: 0em;
     text-align: center;
     font-size: 4em;
 }
@@ -75,6 +80,24 @@ h2 {
     margin: 0;
     font-size: 3em;
 }
+
+.title {
+    padding-bottom: 100%;
+    text-align: center;
+}
+
+header {
+    background-image: url("../img/discover.jpg");
+    background-size: cover;
+    width: 320px;
+    padding: 0.5em;
+}
+
+.sub-title {
+    margin-top: 0;
+}
+
+/***** Topic Cards *****/
 
 .flex-container {
     display: flex;
@@ -116,7 +139,19 @@ h3 {
     background-color: #8b1e276e;
 }
 
-/* Footer with contact information */
+/***** About section *****/
+
+section#descr p {
+    margin: 1em;
+    line-height: 2;
+}
+
+em {
+    font-weight: bolder;
+    font-style: normal;
+}
+
+/***** Footer with contact information *****/
 
 footer {
     background-color: #c4302b;
@@ -137,6 +172,10 @@ footer h3 {
     display: inline-block;
     margin-left: 0.5em;
     margin-right: 0.5em;
+    transition: 0.2s;
+}
+.dot:hover {
+    background-color: rgb(184, 184, 184);
 }
 
 address li {
@@ -154,7 +193,7 @@ a i {
     transform: translateY(-50%);
 }
 
-/* Add pictures to each category */
+/***** Add pictures to each category *****/
 #film {
     background-image: url("../img/film2.jpg");
     background-repeat: no-repeat;
