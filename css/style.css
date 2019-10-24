@@ -106,7 +106,8 @@ header {
 }
 
 .sub-title {
-    margin-top: 0;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
 }
 
 /***** Topic Cards *****/
