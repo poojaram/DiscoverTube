@@ -38,6 +38,7 @@ ul {
 a {
     text-decoration: none;
     font-family: 'Amatic SC', cursive;
+    color: black;
 }
 
 .navbar a {
@@ -385,10 +386,6 @@ button {
 
 button:hover {
     background-color: #8b1e27;
-}
-
-a {
-    color: black;
 }
 
 /***** Larger Screen Style *****/
