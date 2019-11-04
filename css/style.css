@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+html {
+    width: 100%;
+}
+
 body {
     font-family: 'Open Sans', sans-serif;
     margin: 0;
@@ -163,11 +167,6 @@ section#descr p {
     line-height: 2;
 }
 
-em {
-    font-weight: bolder;
-    font-style: normal;
-}
-
 /***** Footer with contact information *****/
 
 footer {
@@ -185,7 +184,7 @@ footer ul {
     justify-content: center;
 }
 
-.dot {
+.social-link {
     height: 50px;
     width: 50px;
     background-color: white;
@@ -195,7 +194,7 @@ footer ul {
     margin-right: 0.5em;
     transition: 0.2s;
 }
-.dot:hover {
+.social-link:hover {
     background-color: rgb(184, 184, 184);
 }
 
@@ -208,131 +207,79 @@ a i {
     color: #c4302b;
     font-size: 30px !important;
 
-    /* Centers icons in dots */
+    /* Centers icons in social-links */
     position: relative;
     top: 50%;
     transform: translateY(-50%);
 }
 
 /***** Add pictures to each category *****/
-#film {
-    background-image: url("../img/film2.jpg");
+
+#watch div.flex-item {
     background-repeat: no-repeat;
     background-position: bottom;
     font-size: 1.5em;
     padding-top: 0;
+}
+
+#film {
+    background-image: url("../img/film2.jpg");
 }
 
 #music {
     background-image: url("../img/music.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
 }
 
 #pets {
     background-image: url("../img/pets_2.png");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
 }
 
 #sports {
     background-image: url("../img/sports.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
 }
 
 #gaming {
     background-image: url("../img/gaming.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
 }
 
 #people {
     background-image: url("../img/people.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
 }
 
 #comedy {
     background-image: url("../img/comedy.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
 }
 
 #entertain {
     background-image: url("../img/entertainment.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
 }
 
 #travel {
     background-image: url("../img/travel.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
 }
 
 #autos {
     background-image: url("../img/autos.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
 }
 
 #news {
     background-image: url("../img/news.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
 }
 
 #howto {
     background-image: url("../img/howto.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
 }
 
 #education {
     background-image: url("../img/education.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
 }
 
 #science {
     background-image: url("../img/science.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
 }
 
 #nonprofit {
     background-image: url("../img/activism.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
 }
 
 /***** interactive mock-up *****/
@@ -384,6 +331,10 @@ button {
     float: right;
 }
 
+.fa-times {
+    float: right;
+}
+
 button:hover {
     background-color: #8b1e27;
 }
@@ -419,18 +370,12 @@ button:hover {
     }
 
     .title h1 {
-        font-size: 15em;
+        font-size: 10em;
         margin-top: 0.75em;
     }
 
     .sub-title {
         font-size: 2em;
-    }
-
-    /***** About section *****/
-    .container {
-        width: 750px;
-        margin: auto;
     }
 
     /***** interactive mockup large screen *****/
@@ -442,5 +387,19 @@ button:hover {
     button {
         padding: 15px 32px;
         font-size: 16px;
+    }
+}
+
+@media (min-width: 750px) {
+    /***** About section *****/
+    .container {
+        width: 750px;
+        margin: auto;
+    }
+}
+
+@media (min-width: 900px) {
+    .title h1 {
+        font-size: 15em;
     }
 }
