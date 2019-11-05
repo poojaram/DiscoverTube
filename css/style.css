@@ -48,7 +48,7 @@ a {
     color: black;
     padding-bottom: 0.4em;
     padding-top: 0.4em;
-    padding-left: 0;
+    padding-left: 0.25em;
     padding-right: 0;
 }
 
@@ -72,6 +72,10 @@ input#menu {
     font-weight: bold;
     color: rgb(255, 210, 210);
     background-color: #8b1e27;
+}
+
+.navbar i {
+    transform: translateY(10%);
 }
 
 /***** Title text *****/

@@ -1,14 +1,14 @@
 'use-strict';
 
-var makeCard = function (card) {
-    cardDiv = $('<div class="flex-item"></div>');
-    cardDiv.css('background-image', 'url(' + card.img + ')');
+var subarray = function(array, start, end) {
+    let newArray = [];
+    let index = 0;
+    for(let i = start; i < end; i++) {
+        newArray[index] = array[i];
+        index++;
+    }
 
-    cardTitle = $('<div class="card-title"></div>');
-    cardTitle.html('<h3>' + card.name + '</h3>');
-
-    cardDiv.append(cardTitle);
-    return cardDiv;
+    return newArray;
 }
 
 var cardObjs = [{'name':'Film &amp; Animation', 'img':'../img/film2.jpg'}, 
@@ -27,6 +27,20 @@ var cardObjs = [{'name':'Film &amp; Animation', 'img':'../img/film2.jpg'},
                 {'name':'Science &amp; Technology', 'img':'../img/science.jpg'}, 
                 {'name':'Nonprofits &amp; Activism', 'img':'../img/activism.jpg'}];
 
+var recCards = subarray(cardObjs, 0, 8);
+var infoCards = subarray(cardObjs, 8, 15);
+
+var makeCard = function (card) {
+    cardDiv = $('<div class="flex-item"></div>');
+    cardDiv.css('background-image', 'url(' + card.img + ')');
+
+    cardTitle = $('<div class="card-title"></div>');
+    cardTitle.html('<h3>' + card.name + '</h3>');
+
+    cardDiv.append(cardTitle);
+    return cardDiv;
+}
+
 //Assumes same number of card names and img urls and that the indices correlate,
 // e.g. the first card name goes with the first card image url, etc.
 var makeTopicSection = function(topicName, cards) {
@@ -42,4 +56,5 @@ var makeTopicSection = function(topicName, cards) {
     $('#watch').append(topicSection);
 }
 
-makeTopicSection('test', cardObjs);
+makeTopicSection('Recreational', recCards);
+makeTopicSection('Informational', infoCards);
