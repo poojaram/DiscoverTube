@@ -24,6 +24,7 @@ nav {
     position: fixed;
     width: 100%;
     padding: .5em;
+    padding-top: 0;
     top: 0;
     left: 0;
     background-color: #c4302b;
@@ -70,6 +71,7 @@ input#menu {
 .navbar-content a:hover {
     font-weight: bold;
     color: rgb(255, 210, 210);
+    background-color: #8b1e27;
 }
 
 /***** Title text *****/
@@ -161,6 +163,10 @@ section#descr h2 {
 section#descr p {
     margin: 1em;
     line-height: 2;
+}
+
+.bold {
+    font-weight: bold;
 }
 
 /***** Footer with contact information *****/
@@ -348,7 +354,7 @@ button:hover {
 
     .navbar-content a {
         padding-bottom: 0.2em;
-        padding-top: 0;
+        padding-top: 0.2em;
         padding-left: 0.4em;
         padding-right: 0.4em;
     }
