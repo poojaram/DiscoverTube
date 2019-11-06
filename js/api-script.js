@@ -2,7 +2,6 @@
 
 const API_KEY = 'AIzaSyD86p8C2PzxAfn6vGysciDbUW9Hg_Q3ang';
 const FIND_VIDEO = 'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&videoEmbeddable=true&key=' + API_KEY;
-const NEXT_PAGE_URL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&videoEmbeddable=true&key=' + API_KEY;
 const GET_VIEW_COUNT = 'https://www.googleapis.com/youtube/v3/videos?part=statistics&key=' + API_KEY;
 
 var videoCategoryIds = [{'name':'Film &amp; Animation', 'id':1}, 
@@ -24,50 +23,72 @@ var videoCategoryIds = [{'name':'Film &amp; Animation', 'id':1},
 var getIdFromCategoryName = function(categoryName) {
     for(let i = 0; i < videoCategoryIds.length; i++) {
         if(videoCategoryIds[i].name == categoryName) {
-            return videoCategoryIds.id;
+            return videoCategoryIds[i].id;
         }
     }
 
     return -1;
 }
 
-var getVideo = function(url) {
-    fetch(url)
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(data) {
-            let videoId = data.items[0].id.videoId;
-            let nextPage = data.nextPageToken;
-            return {'videoId':videoId, 'nextPage':nextPage};
-        })
-        .catch(function(err) {
-            console.error(err);
-        });
+var getVideo = async function(url) {
+    try {
+        console.log(url);
+        let results = await fetch(url)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                let videoId = data.items[0].id.videoId;
+                let nextPage = data.nextPageToken;
+                return {'videoId':videoId, 'nextPage':nextPage};
+            })
+            .then(function(video) {
+                return video
+            })
+        
+            console.log('results: ' + results)
+        return results;
+    } catch(err) {
+        console.log(err);
+    }
 }
 
-var zeroViews = function(videoId) {
-    let url = GET_VIEW_COUNT + '&id=' + videoId;
-    fetch(url)
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(data) {
-            return data.items[0].statistics.viewCount == 0;
-        })
+var zeroViews = async function(videoId) {
+    try {
+        let url = GET_VIEW_COUNT + '&id=' + videoId;
+        let views = await fetch(url)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                return data.items[0].statistics.viewCount;
+            })
+        
+        console.log('zero views: ' + views == 0);
+        return views == 0;
+    } catch(err) {
+        console.log(err);
+    }
 }
 
 var urlVideoChain = FIND_VIDEO + '&videoCategoryId=';
-var urlVideoFromNextPage = NEXT_PAGE_URL + '&pageToken=';
+var urlVideoFromNextPage = FIND_VIDEO + '&pageToken=';
 
-var getVideoWithZeroViews = function(categoryId) {
-    let video = getVideo(urlVideoChain + categoryId);
-    let hasZeroViews = zeroViews(video.videoId);
+var getVideoWithZeroViews = async function(categoryId) {
+    try {
+        let video = await getVideo(urlVideoChain + categoryId);
+        let hasZeroViews = await zeroViews(video.videoId);
 
-    while(!zeroViews) {
-        video = getVideo(urlVideoFromNextPage + video.nextPage);
-        hasZeroViews = zeroViews(video.videoId);
+        let count = 0;
+        while(!hasZeroViews) {
+            video = await getVideo(urlVideoFromNextPage + video.nextPage);
+            hasZeroViews = await zeroViews(video.videoId);
+            count++;
+            console.log(count);
+        }
+
+        return video.videoId;
+    } catch(err) {
+        console.log(err);
     }
-
-    return video.videoId;
 }

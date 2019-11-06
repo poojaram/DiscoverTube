@@ -60,8 +60,12 @@ var makeCard = function (card) {
     cardDiv = $('<div class="flex-item card"></div>');
     cardDiv.css('background-image', 'url(' + card.img + ')');
 
-    cardDiv.click(function(event) {
-        console.log(getVideoWithZeroViews(getIdFromCategoryName(card.name)));
+    cardDiv.click(async function(event) {
+        try {
+            console.log(await getVideoWithZeroViews(getIdFromCategoryName(card.name)));
+        } catch(err) {
+            console.log(err);
+        }
     });
 
     cardTitle = $('<div class="card-title"></div>');
