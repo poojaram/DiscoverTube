@@ -1,8 +1,9 @@
 'use-strict'
 
+const VIDEO_BATCH_AMOUNT = 50;
 const API_KEY = 'AIzaSyD86p8C2PzxAfn6vGysciDbUW9Hg_Q3ang';
-const FIND_VIDEO = 'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&type=video&videoEmbeddable=true&key=' + API_KEY;
-const GET_VIEW_COUNT = 'https://www.googleapis.com/youtube/v3/videos?part=statistics&key=' + API_KEY;
+const FIND_VIDEO = 'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=' + VIDEO_BATCH_AMOUNT + '&type=video&videoEmbeddable=true&key=' + API_KEY;
+const GET_VIEW_COUNT = 'https://www.googleapis.com/youtube/v3/videos?part=statistics&maxResults=' + VIDEO_BATCH_AMOUNT + '&key=' + API_KEY;
 
 let videoCategoryIds = [{'name':'Film &amp; Animation', 'id':1}, 
                         {'name':'Music', 'id':2}, 
@@ -30,56 +31,52 @@ let getIdFromCategoryName = function(categoryName) {
     return -1;
 }
 
-let getVideo = async function(url) {
+let getViews = async function(videos) {
     try {
-        console.log(url);
-        let results = await fetch(url)
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(data) {
-                let videoId = data.items[0].id.videoId;
-                let nextPage = data.nextPageToken;
-                return {'videoId':videoId, 'nextPage':nextPage};
-            })
-            .then(function(video) {
-                return video
-            })
-        return results;
-    } catch(err) {
-        console.log(err);
-    }
-}
+        let url = GET_VIEW_COUNT + '&id=';
+        for(let i = 0; i < videos.length - 1; i++) {
+            url += videos[i].id.videoId + ', ';
+        }
+        url += videos[videos.length - 1].id.videoId;
 
-let zeroViews = async function(videoId) {
-    try {
-        let url = GET_VIEW_COUNT + '&id=' + videoId;
         let views = await fetch(url)
             .then(function(response) {
                 return response.json();
             })
             .then(function(data) {
-                return data.items[0].statistics.viewCount;
-            })
-        return views == 0;
+                return data.items;
+            });
+
+        return views;
     } catch(err) {
         console.log(err);
     }
 }
 
-let urlVideoChain = FIND_VIDEO + '&videoCategoryId=';
-let urlVideoFromNextPage = FIND_VIDEO + '&pageToken=';
-
-let getVideoWithZeroViews = async function(categoryId) {
+let nextPage = '';
+let getVideosWithZeroViews = async function(categoryId) {
     try {
-        let video = await getVideo(urlVideoChain + categoryId);
-        let hasZeroViews = await zeroViews(video.videoId);
-        while(!hasZeroViews) {
-            video = await getVideo(urlVideoFromNextPage + video.nextPage);
-            hasZeroViews = await zeroViews(video.videoId);
+        let batch = await fetch(FIND_VIDEO + '&videoCategoryId=' + categoryId)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                return data;
+            });
+
+        let videos = batch.items;
+        nextPage = batch.nextPageToken;
+        let views = getViews(videos);
+        
+        let zeroViews = [];
+        let index = 0;
+        for(let i = 0; i < videos.length; i++) {
+            if(views[i].statistics.viewCount == 0) {
+                zeroViews[index] = videos[i].id.videoId;
+            }
         }
 
-        return video.videoId;
+        return zeroViews;
     } catch(err) {
         console.log(err);
     }
