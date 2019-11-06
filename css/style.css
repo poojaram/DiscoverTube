@@ -228,7 +228,7 @@ a i {
     padding-top: 0;
 }
 
-/***** interactive mock-up *****/
+/***** Popup *****/
 .focus {
     background-color:rgb(39, 39, 39, 0.9);
     position:fixed;
@@ -271,6 +271,15 @@ button {
     display: inline-block;
     font-size: 10px;
     border-radius: 8px;
+}
+
+.fa-times {
+    padding: 0 5px;
+}
+
+.fa-times:hover {
+    border-radius: 4px;
+    background-color: gray;
 }
 
 .new-vid {

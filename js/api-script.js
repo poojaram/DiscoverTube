@@ -54,6 +54,7 @@ let getViews = async function(videos) {
 }
 
 let nextPage = '';
+let videosWithNoViews = [];
 let getVideosWithZeroViews = async function(categoryId) {
     try {
         let batch = await fetch(FIND_VIDEO + '&videoCategoryId=' + categoryId)
@@ -79,5 +80,13 @@ let getVideosWithZeroViews = async function(categoryId) {
         return zeroViews;
     } catch(err) {
         console.log(err);
+    }
+}
+
+let getVideo = async function() {
+    if(videosWithNoViews === []) {
+
+    } else {
+        
     }
 }
