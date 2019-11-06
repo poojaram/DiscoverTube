@@ -1,6 +1,6 @@
 'use-strict';
 
-var subarray = function(array, start, end) {
+let subarray = function(array, start, end) {
     let newArray = [];
     let index = 0;
     for(let i = start; i < end; i++) {
@@ -11,7 +11,7 @@ var subarray = function(array, start, end) {
     return newArray;
 }
 
-var cardObjs = [{'name':'Film &amp; Animation', 'img':'../img/film2.jpg'}, 
+let cardObjs = [{'name':'Film &amp; Animation', 'img':'../img/film2.jpg'}, 
                 {'name':'Music', 'img':'../img/music.jpg'}, 
                 {'name':'Pets &amp; Animals', 'img':'../img/pets_2.png'}, 
                 {'name':'Sports', 'img':'../img/sports.jpg'}, 
@@ -27,7 +27,7 @@ var cardObjs = [{'name':'Film &amp; Animation', 'img':'../img/film2.jpg'},
                 {'name':'Science &amp; Technology', 'img':'../img/science.jpg'}, 
                 {'name':'Nonprofits &amp; Activism', 'img':'../img/activism.jpg'}];
 
-var cardsAlphabetical = [{'name':'Film &amp; Animation', 'img':'../img/film2.jpg'}, 
+let cardsAlphabetical = [{'name':'Film &amp; Animation', 'img':'../img/film2.jpg'}, 
                          {'name':'Music', 'img':'../img/music.jpg'}, 
                          {'name':'Pets &amp; Animals', 'img':'../img/pets_2.png'}, 
                          {'name':'Sports', 'img':'../img/sports.jpg'}, 
@@ -53,10 +53,10 @@ cardsAlphabetical.sort(function(card1, card2) {
         }
 });
 
-var recCards = subarray(cardObjs, 0, 8);
-var infoCards = subarray(cardObjs, 8, 15);
+let recCards = subarray(cardObjs, 0, 8);
+let infoCards = subarray(cardObjs, 8, 15);
 
-var makeCard = function (card) {
+let makeCard = function (card) {
     cardDiv = $('<div class="flex-item card"></div>');
     cardDiv.css('background-image', 'url(' + card.img + ')');
 
@@ -77,11 +77,11 @@ var makeCard = function (card) {
 
 //Assumes same number of card names and img urls and that the indices correlate,
 // e.g. the first card name goes with the first card image url, etc.
-var makeTopicSection = function(topicName, cards) {
-    var topicSection = $('<section>');
+let makeTopicSection = function(topicName, cards) {
+    let topicSection = $('<section>');
     topicSection.append('<h2>' + topicName + '</h2>');
 
-    var container = $('<div class="flex-container">');
+    let container = $('<div class="flex-container">');
 
     for(let i = 0; i < cards.length; i++) {
         container.append(makeCard(cards[i])[0]);

@@ -1,10 +1,10 @@
 'use-strict'
 
 const API_KEY = 'AIzaSyD86p8C2PzxAfn6vGysciDbUW9Hg_Q3ang';
-const FIND_VIDEO = 'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&videoEmbeddable=true&key=' + API_KEY;
+const FIND_VIDEO = 'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&type=video&videoEmbeddable=true&key=' + API_KEY;
 const GET_VIEW_COUNT = 'https://www.googleapis.com/youtube/v3/videos?part=statistics&key=' + API_KEY;
 
-var videoCategoryIds = [{'name':'Film &amp; Animation', 'id':1}, 
+let videoCategoryIds = [{'name':'Film &amp; Animation', 'id':1}, 
                         {'name':'Music', 'id':2}, 
                         {'name':'Pets &amp; Animals', 'id':10}, 
                         {'name':'Sports', 'id':15}, 
@@ -20,7 +20,7 @@ var videoCategoryIds = [{'name':'Film &amp; Animation', 'id':1},
                         {'name':'Science &amp; Technology', 'id':28}, 
                         {'name':'Nonprofits &amp; Activism', 'id':29}];
 
-var getIdFromCategoryName = function(categoryName) {
+let getIdFromCategoryName = function(categoryName) {
     for(let i = 0; i < videoCategoryIds.length; i++) {
         if(videoCategoryIds[i].name == categoryName) {
             return videoCategoryIds[i].id;
@@ -30,7 +30,7 @@ var getIdFromCategoryName = function(categoryName) {
     return -1;
 }
 
-var getVideo = async function(url) {
+let getVideo = async function(url) {
     try {
         console.log(url);
         let results = await fetch(url)
@@ -51,7 +51,7 @@ var getVideo = async function(url) {
     }
 }
 
-var zeroViews = async function(videoId) {
+let zeroViews = async function(videoId) {
     try {
         let url = GET_VIEW_COUNT + '&id=' + videoId;
         let views = await fetch(url)
@@ -67,15 +67,13 @@ var zeroViews = async function(videoId) {
     }
 }
 
-var urlVideoChain = FIND_VIDEO + '&videoCategoryId=';
-var urlVideoFromNextPage = FIND_VIDEO + '&pageToken=';
+let urlVideoChain = FIND_VIDEO + '&videoCategoryId=';
+let urlVideoFromNextPage = FIND_VIDEO + '&pageToken=';
 
-var getVideoWithZeroViews = async function(categoryId) {
+let getVideoWithZeroViews = async function(categoryId) {
     try {
         let video = await getVideo(urlVideoChain + categoryId);
         let hasZeroViews = await zeroViews(video.videoId);
-
-        let count = 0;
         while(!hasZeroViews) {
             video = await getVideo(urlVideoFromNextPage + video.nextPage);
             hasZeroViews = await zeroViews(video.videoId);
