@@ -158,33 +158,6 @@ h3 {
     background-color: #8b1e276e;
 }
 
-#layout {
-    display: block;
-    margin: 0 auto;
-    margin-top: 50px;
-}
-
-.layout-controls {
-    text-align: center;
-}
-
-.layout-options {
-    height: 0;
-    overflow: hidden;
-    transition: height 0.25s ease-in-out;
-}
-
-.layout-type {
-    font-size: 0.75em;
-    width: 100%;
-    margin: 0;
-    margin-top: 15px;
-}
-
-.layout-controls label {
-    font-size: 1em;
-}
-
 /***** About section *****/
 
 section#descr h2 {

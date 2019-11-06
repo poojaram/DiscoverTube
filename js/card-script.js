@@ -86,24 +86,5 @@ var makeTopicSection = function(topicName, cards) {
     $('#watch').append(topicSection);
 }
 
-//Make layout button show/hide layout controls on click
-var showControls = false;
-$('#layout').click(function(event) {
-    showControls = !showControls;
-    if(showControls) {
-        $('.layout-options').css('height', '175px');
-    } else {
-        $('.layout-options').css('height', '0px');
-    }
-});
-
-//check default values
-var checkboxes = $('.checked');
-for (let i = 0; i < checkboxes.length; i++)  {
-    checkboxes[i].checked = true;
-}
-
-//Show cards from selected categories
-$('.layout-type').click(function(event) {
-    
-});
+makeTopicSection('Recreational', recCards);
+makeTopicSection('Informational', infoCards);
