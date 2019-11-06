@@ -52,7 +52,7 @@ a {
     padding-right: 0;
 }
 
-label {
+.navbar label {
     font-size: 2em;
     padding-left: 0.5em;
     padding-right: 0.5em;
@@ -60,7 +60,7 @@ label {
     padding-bottom: 0.25em;
 }
 
-label:hover {
+.navbar label:hover {
     background-color: #8b1e27;
 }
 
@@ -158,6 +158,33 @@ h3 {
     background-color: #8b1e276e;
 }
 
+#layout {
+    display: block;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.layout-controls {
+    text-align: center;
+}
+
+.layout-options {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.25s ease-in-out;
+}
+
+.layout-type {
+    font-size: 0.75em;
+    width: 100%;
+    margin: 0;
+    margin-top: 15px;
+}
+
+.layout-controls label {
+    font-size: 1em;
+}
+
 /***** About section *****/
 
 section#descr h2 {
@@ -219,73 +246,13 @@ a i {
     transform: translateY(-50%);
 }
 
-/***** Add pictures to each category *****/
+/***** Style pictures for each card *****/
 
 #watch div.flex-item {
     background-repeat: no-repeat;
     background-position: bottom;
     font-size: 1.5em;
     padding-top: 0;
-}
-
-#film {
-    background-image: url("../img/film2.jpg");
-}
-
-#music {
-    background-image: url("../img/music.jpg");
-}
-
-#pets {
-    background-image: url("../img/pets_2.png");
-}
-
-#sports {
-    background-image: url("../img/sports.jpg");
-}
-
-#gaming {
-    background-image: url("../img/gaming.jpg");
-}
-
-#people {
-    background-image: url("../img/people.jpg");
-}
-
-#comedy {
-    background-image: url("../img/comedy.jpg");
-}
-
-#entertain {
-    background-image: url("../img/entertainment.jpg");
-}
-
-#travel {
-    background-image: url("../img/travel.jpg");
-}
-
-#autos {
-    background-image: url("../img/autos.jpg");
-}
-
-#news {
-    background-image: url("../img/news.jpg");
-}
-
-#howto {
-    background-image: url("../img/howto.jpg");
-}
-
-#education {
-    background-image: url("../img/education.jpg");
-}
-
-#science {
-    background-image: url("../img/science.jpg");
-}
-
-#nonprofit {
-    background-image: url("../img/activism.jpg");
 }
 
 /***** interactive mock-up *****/
@@ -342,13 +309,17 @@ button {
 }
 
 button:hover {
+    background-color: rgb(240, 59, 53);
+}
+
+button:active {
     background-color: #8b1e27;
 }
 
 /***** Larger Screen Style *****/
 @media (min-width: 598px) {
     /***** Navigation bar *****/
-    label {
+    .navbar label {
         display: none;
     }
 
