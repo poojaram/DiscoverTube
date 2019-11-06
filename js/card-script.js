@@ -56,13 +56,13 @@ cardsAlphabetical.sort(function(card1, card2) {
 var recCards = subarray(cardObjs, 0, 8);
 var infoCards = subarray(cardObjs, 8, 15);
 
-var cardCategories = [{'name':'Recreational', 'cards':recCards},
-                      {'name':'Informational', 'cards':infoCards},
-                      {'name':'Alphabetical', 'cards':cardsAlphabetical}];
-
 var makeCard = function (card) {
-    cardDiv = $('<div class="flex-item"></div>');
+    cardDiv = $('<div class="flex-item card"></div>');
     cardDiv.css('background-image', 'url(' + card.img + ')');
+
+    cardDiv.click(function(event) {
+        console.log(getVideoWithZeroViews(getIdFromCategoryName(card.name)));
+    });
 
     cardTitle = $('<div class="card-title"></div>');
     cardTitle.html('<h3>' + card.name + '</h3>');
@@ -78,6 +78,7 @@ var makeTopicSection = function(topicName, cards) {
     topicSection.append('<h2>' + topicName + '</h2>');
 
     var container = $('<div class="flex-container">');
+
     for(let i = 0; i < cards.length; i++) {
         container.append(makeCard(cards[i])[0]);
     }
