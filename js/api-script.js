@@ -45,8 +45,6 @@ var getVideo = async function(url) {
             .then(function(video) {
                 return video
             })
-        
-            console.log('results: ' + results)
         return results;
     } catch(err) {
         console.log(err);
@@ -63,8 +61,6 @@ var zeroViews = async function(videoId) {
             .then(function(data) {
                 return data.items[0].statistics.viewCount;
             })
-        
-        console.log('zero views: ' + views == 0);
         return views == 0;
     } catch(err) {
         console.log(err);
@@ -83,8 +79,6 @@ var getVideoWithZeroViews = async function(categoryId) {
         while(!hasZeroViews) {
             video = await getVideo(urlVideoFromNextPage + video.nextPage);
             hasZeroViews = await zeroViews(video.videoId);
-            count++;
-            console.log(count);
         }
 
         return video.videoId;
