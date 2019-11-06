@@ -62,7 +62,12 @@ let makeCard = function (card) {
 
     cardDiv.click(async function(event) {
         try {
-            console.log(await getVideoWithZeroViews(getIdFromCategoryName(card.name)));
+            let focusDiv = $('<div class="focus"></div>')
+            focusDiv.html('<h2>Video Title <i class="fa fa-times" aria-hidden="true"></i></h2>'
+            + '<div class="box"></div><button>YouTube</button><button class="new-vid">New Video</button>');
+
+            $('main').prepend(focusDiv);
+            //console.log(await getVideoWithZeroViews(getIdFromCategoryName(card.name)));
         } catch(err) {
             console.log(err);
         }
