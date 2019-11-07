@@ -24,6 +24,7 @@ nav {
     position: fixed;
     width: 100%;
     padding: .5em;
+    padding-top: 0;
     top: 0;
     left: 0;
     background-color: #c4302b;
@@ -47,11 +48,11 @@ a {
     color: black;
     padding-bottom: 0.4em;
     padding-top: 0.4em;
-    padding-left: 0;
+    padding-left: 0.25em;
     padding-right: 0;
 }
 
-label {
+.navbar label {
     font-size: 2em;
     padding-left: 0.5em;
     padding-right: 0.5em;
@@ -59,7 +60,7 @@ label {
     padding-bottom: 0.25em;
 }
 
-label:hover {
+.navbar label:hover {
     background-color: #8b1e27;
 }
 
@@ -70,6 +71,11 @@ input#menu {
 .navbar-content a:hover {
     font-weight: bold;
     color: rgb(255, 210, 210);
+    background-color: #8b1e27;
+}
+
+.navbar i {
+    transform: translateY(10%);
 }
 
 /***** Title text *****/
@@ -80,7 +86,7 @@ h1, h2, h3 {
 
 h1 {
     margin-top: 1.5em;
-    margin-bottom: 0em;
+    margin-bottom: 0;
     text-align: center;
     font-size: 4em;
 }
@@ -155,18 +161,17 @@ h3 {
 
 /***** About section *****/
 
-section#descr h2 {
+.descr h2 {
     margin-top: 2em;
 }
 
-section#descr p {
+.descr p {
     margin: 1em;
     line-height: 2;
 }
 
-em {
-    font-weight: bolder;
-    font-style: normal;
+.bold {
+    font-weight: bold;
 }
 
 /***** Footer with contact information *****/
@@ -186,7 +191,7 @@ footer ul {
     justify-content: center;
 }
 
-.dot {
+.contact-link {
     height: 50px;
     width: 50px;
     background-color: white;
@@ -196,7 +201,7 @@ footer ul {
     margin-right: 0.5em;
     transition: 0.2s;
 }
-.dot:hover {
+.contact-link:hover {
     background-color: rgb(184, 184, 184);
 }
 
@@ -205,139 +210,42 @@ address li {
     size: 50px;
 }
 
-a i {
+.contact-link i {
     color: #c4302b;
     font-size: 30px !important;
 
-    /* Centers icons in dots */
+    /* Centers icons in contact-links */
     position: relative;
     top: 50%;
     transform: translateY(-50%);
 }
 
-/***** Add pictures to each category *****/
-#film {
-    background-image: url("../img/film2.jpg");
+/***** Style pictures for each card *****/
+
+#watch div.flex-item {
     background-repeat: no-repeat;
     background-position: bottom;
     font-size: 1.5em;
     padding-top: 0;
 }
 
-#music {
-    background-image: url("../img/music.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
+/***** Popup *****/
+iframe {
+    display: block;
+    margin: 0;
 }
 
-#pets {
-    background-image: url("../img/pets_2.png");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
+iframe.flex-item {
+    flex: 0 0 200px;
+    height: 303px;
 }
 
-#sports {
-    background-image: url("../img/sports.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
+#player {
+    margin: 0;
 }
 
-#gaming {
-    background-image: url("../img/gaming.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
-}
-
-#people {
-    background-image: url("../img/people.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
-}
-
-#comedy {
-    background-image: url("../img/comedy.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
-}
-
-#entertain {
-    background-image: url("../img/entertainment.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
-}
-
-#travel {
-    background-image: url("../img/travel.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
-}
-
-#autos {
-    background-image: url("../img/autos.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
-}
-
-#news {
-    background-image: url("../img/news.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
-}
-
-#howto {
-    background-image: url("../img/howto.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
-}
-
-#education {
-    background-image: url("../img/education.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
-}
-
-#science {
-    background-image: url("../img/science.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
-}
-
-#nonprofit {
-    background-image: url("../img/activism.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    font-size: 1.5em;
-    padding-top: 0;
-}
-
-/***** interactive mock-up *****/
 .focus {
+    display: none;
     background-color:rgb(39, 39, 39, 0.9);
     position:fixed;
     width:100%;
@@ -345,29 +253,7 @@ a i {
     top:0px;
     left:0px;
     z-index:1000;
-}
-
-.popup {
-    margin: 10% auto;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 5px;
-    width: 80%;
-    height: 90%;
-    position: relative;
-}
-
-.popup h2 {
-    margin-top: 0;
-}
-
-.box {
-    opacity: 1;
-    background-color: black;
-    height: 60%;
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
+    font-size: 2em;
 }
 
 button {
@@ -381,18 +267,34 @@ button {
     border-radius: 8px;
 }
 
+.fa-times {
+    padding: 0 5px;
+    float: right;
+    color: white;
+    display: block;
+}
+
+.fa-times:hover {
+    border-radius: 4px;
+    background-color: gray;
+}
+
 .new-vid {
     float: right;
 }
 
 button:hover {
+    background-color: rgb(240, 59, 53);
+}
+
+button:active {
     background-color: #8b1e27;
 }
 
 /***** Larger Screen Style *****/
 @media (min-width: 598px) {
     /***** Navigation bar *****/
-    label {
+    .navbar label {
         display: none;
     }
 
@@ -402,7 +304,7 @@ button:hover {
 
     .navbar-content a {
         padding-bottom: 0.2em;
-        padding-top: 0;
+        padding-top: 0.2em;
         padding-left: 0.4em;
         padding-right: 0.4em;
     }
@@ -420,7 +322,7 @@ button:hover {
     }
 
     .title h1 {
-        font-size: 15em;
+        font-size: 10em;
         margin-top: 0.75em;
     }
 
@@ -428,20 +330,28 @@ button:hover {
         font-size: 2em;
     }
 
+    /***** interactive *****/
+    button {
+        padding: 15px 32px;
+        font-size: 16px;
+    }
+
+    .flex-item#player {
+        flex: 0 0 70%;
+        height: 90%;
+    }
+}
+
+@media (min-width: 750px) {
     /***** About section *****/
     .container {
         width: 750px;
         margin: auto;
     }
+}
 
-    /***** interactive mockup large screen *****/
-    .popup {
-        width: 70%;
-        height: 70%;
-    }
-    
-    button {
-        padding: 15px 32px;
-        font-size: 16px;
+@media (min-width: 900px) {
+    .title h1 {
+        font-size: 15em;
     }
 }
