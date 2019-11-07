@@ -229,7 +229,22 @@ address li {
 }
 
 /***** Popup *****/
+iframe {
+    display: block;
+    margin: 0;
+}
+
+iframe.flex-item {
+    flex: 0 0 200px;
+    height: 303px;
+}
+
+#player {
+    margin: 0;
+}
+
 .focus {
+    display: none;
     background-color:rgb(39, 39, 39, 0.9);
     position:fixed;
     width:100%;
@@ -237,29 +252,7 @@ address li {
     top:0px;
     left:0px;
     z-index:1000;
-}
-
-.popup {
-    margin: 10% auto;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 5px;
-    width: 80%;
-    height: 90%;
-    position: relative;
-}
-
-.popup h2 {
-    margin-top: 0;
-}
-
-.box {
-    opacity: 1;
-    background-color: black;
-    height: 60%;
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
+    font-size: 2em;
 }
 
 button {
@@ -276,6 +269,8 @@ button {
 .fa-times {
     padding: 0 5px;
     float: right;
+    color: white;
+    display: block;
 }
 
 .fa-times:hover {
@@ -334,15 +329,15 @@ button:active {
         font-size: 2em;
     }
 
-    /***** interactive mockup large screen *****/
-    .popup {
-        width: 70%;
-        height: 70%;
-    }
-    
+    /***** interactive *****/
     button {
         padding: 15px 32px;
         font-size: 16px;
+    }
+
+    .flex-item#player {
+        flex: 0 0 70%;
+        height: 90%;
     }
 }
 

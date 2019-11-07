@@ -6,15 +6,15 @@ const FIND_VIDEO = 'https://www.googleapis.com/youtube/v3/search?part=snippet&ma
 const GET_VIEW_COUNT = 'https://www.googleapis.com/youtube/v3/videos?part=statistics&maxResults=' + VIDEO_BATCH_AMOUNT + '&key=' + API_KEY;
 
 let videoCategoryIds = [{'name':'Film &amp; Animation', 'id':1}, 
-                        {'name':'Music', 'id':2}, 
-                        {'name':'Pets &amp; Animals', 'id':10}, 
-                        {'name':'Sports', 'id':15}, 
-                        {'name':'Gaming', 'id':17}, 
-                        {'name':'People &amp; Blogs', 'id':19}, 
-                        {'name':'Comedy', 'id':20}, 
-                        {'name':'Entertainment', 'id':22}, 
-                        {'name':'Travel &amp; Events', 'id':23}, 
-                        {'name':'Cars', 'id':24}, 
+                        {'name':'Music', 'id':10}, 
+                        {'name':'Pets &amp; Animals', 'id':15}, 
+                        {'name':'Sports', 'id':17}, 
+                        {'name':'Gaming', 'id':20}, 
+                        {'name':'People &amp; Blogs', 'id':22}, 
+                        {'name':'Comedy', 'id':23}, 
+                        {'name':'Entertainment', 'id':24}, 
+                        {'name':'Travel &amp; Events', 'id':19}, 
+                        {'name':'Cars', 'id':2}, 
                         {'name':'News &amp; Politics', 'id':25}, 
                         {'name':'How-to', 'id':26}, 
                         {'name':'Education', 'id':27}, 
@@ -98,7 +98,7 @@ let filterForZeroViews = async function(videos) {
         let zeroViews = [];
         let index = 0;
         for(let i = 0; i < videos.length; i++) {
-            if(views[i].statistics.viewCount <= 1000) {
+            if(views[i].statistics.viewCount <= 500) {
                 zeroViews[index] = videos[i].id.videoId;
                 index++;
             }
@@ -136,5 +136,5 @@ let getVideo = async function() {
 }
 
 let embedVideo = async function(videoId) {
-    
+
 }
