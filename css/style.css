@@ -160,11 +160,11 @@ h3 {
 
 /***** About section *****/
 
-section#descr h2 {
+.descr h2 {
     margin-top: 2em;
 }
 
-section#descr p {
+.descr p {
     margin: 1em;
     line-height: 2;
 }
@@ -190,7 +190,7 @@ footer ul {
     justify-content: center;
 }
 
-.social-link {
+.contact-link {
     height: 50px;
     width: 50px;
     background-color: white;
@@ -200,7 +200,7 @@ footer ul {
     margin-right: 0.5em;
     transition: 0.2s;
 }
-.social-link:hover {
+.contact-link:hover {
     background-color: rgb(184, 184, 184);
 }
 
@@ -209,11 +209,11 @@ address li {
     size: 50px;
 }
 
-a i {
+.contact-link i {
     color: #c4302b;
     font-size: 30px !important;
 
-    /* Centers icons in social-links */
+    /* Centers icons in contact-links */
     position: relative;
     top: 50%;
     transform: translateY(-50%);
@@ -275,6 +275,7 @@ button {
 
 .fa-times {
     padding: 0 5px;
+    float: right;
 }
 
 .fa-times:hover {
@@ -283,10 +284,6 @@ button {
 }
 
 .new-vid {
-    float: right;
-}
-
-.fa-times {
     float: right;
 }
 

@@ -39,17 +39,54 @@ let makeCard = function (card) {
             let focusDiv = $('<div class="focus"></div>');
             let popupDiv = $('<div class="popup"></div>');
             let title = '<h2>Video Title <i class="fa fa-times" aria-hidden="true"></i></h2>';
-            let videoBox = '<div class="box"></div>';
+            let videoBox = '<div id="player"></div>';
             let buttons = '<button class="yt-link">YouTube</button><button class="new-vid">New Video</button>';
+            let script = 
+             "let tag = document.createElement('script');" +
+             "tag.src = 'https://www.youtube.com/iframe_api';" +
+             "let firstScriptTag = document.getElementsByTagName('script')[0];" +
+             "firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);" +
+             "let player;" +
+             "function onYouTubeIframeAPIReady() {" +
+                 "player = new YT.Player('player', {" +
+                 "height: '390'," +
+                 "width: '640'," +
+                 "videoId: 'M7lc1UVf-VE'," +
+                 "events: {" +
+                     "'onReady': onPlayerReady" +
+                 "}" +
+                 "});" +
+             "}" +
+             "function onPlayerReady(event) {" +
+                 "event.target.playVideo();" +
+             "}"
+
+            let scriptTag = $('<script></script>');
+            scriptTag.html(script);
 
             focusDiv.append(popupDiv.html(title + videoBox + buttons));
+            focusDiv.append(scriptTag);
             $('main').prepend(focusDiv);
 
-            $('.fa-times').click(function(event) {
+            /* $('.fa-times').click(function(event) {
                 $('.focus').remove();
             });
 
-            //console.log(await getVideoWithZeroViews(getIdFromCategoryName(card.name)));
+            $('.new-vid').click(async function(event) {
+                try {
+                    console.log(await getVideo());
+                } catch(err) {
+                    console.log(err);
+                }
+            });
+
+            await filterForZeroViews(await getVideoBatch(getIdFromCategoryName(card.name)));
+
+            while(videosWithNoViews.length == 0) {
+                await filterForZeroViews(await getNextPage());
+            }
+
+            console.log(videosWithNoViews); */
         } catch(err) {
             console.log(err);
         }
