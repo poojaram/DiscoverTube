@@ -3,18 +3,46 @@ import {Component} from 'react';
 import {CardList} from './Card.js'
 import {newCardNames} from './Card.js';
 import {newCardImgLinks} from './Card.js';
+import {Popup} from './Popup.js';
 
 export default class App extends Component {
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      popupDisplay: 'block',
+      cardName: 'Music'
+    };
+  }
+
+  openPopup = (curCardName) => {
+    let stateChanges = {
+      popupDisplay: 'block',
+      cardName: curCardName
+    };
+
+    this.setState(stateChanges);
+  }
+
+  closePopup = () => {
+    let stateChanges = {
+      popupDisplay: 'none'
+    };
+
+    this.setState(stateChanges);
+  }
+
+
   render() {
+    console.log(this.state);
     return (
       <div className="App">
+        <Popup close={this.closePopup} popupDisplay={this.state.popupDisplay} cardName={this.state.cardName} />
         <Navbar />
         <Title />
-        <CardList cardNames={newCardNames} imgLinks={newCardImgLinks} />
+        <CardList cardNames={newCardNames} imgLinks={newCardImgLinks} open={this.openPopup} />
         <Description />
         <Footer />
-
-        <img href='./img/pets_2.png'></img>
       </div>
     );
   }

@@ -5,7 +5,7 @@ const API_KEY = 'AIzaSyD86p8C2PzxAfn6vGysciDbUW9Hg_Q3ang';
 const FIND_VIDEO = 'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=' + VIDEO_BATCH_AMOUNT + '&type=video&videoEmbeddable=true&order=date&key=' + API_KEY;
 const GET_VIEW_COUNT = 'https://www.googleapis.com/youtube/v3/videos?part=statistics&maxResults=' + VIDEO_BATCH_AMOUNT + '&key=' + API_KEY;
 
-let videoCategoryIds = [{'name':'Film &amp; Animation', 'id':1}, 
+export let videoCategoryIds = [{'name':'Film &amp; Animation', 'id':1}, 
                         {'name':'Music', 'id':10}, 
                         {'name':'Pets &amp; Animals', 'id':15}, 
                         {'name':'Sports', 'id':17}, 
@@ -21,7 +21,7 @@ let videoCategoryIds = [{'name':'Film &amp; Animation', 'id':1},
                         {'name':'Science &amp; Technology', 'id':28}, 
                         {'name':'Nonprofits &amp; Activism', 'id':29}];
 
-let getIdFromCategoryName = function(categoryName) {
+export let getIdFromCategoryName = function(categoryName) {
     for(let i = 0; i < videoCategoryIds.length; i++) {
         if(videoCategoryIds[i].name == categoryName) {
             return videoCategoryIds[i].id;
@@ -31,7 +31,7 @@ let getIdFromCategoryName = function(categoryName) {
     return -1;
 }
 
-let getViews = async function(videos) {
+export let getViews = async function(videos) {
     try {
         let url = GET_VIEW_COUNT + '&id=';
         for(let i = 0; i < videos.length - 1; i++) {
@@ -53,9 +53,9 @@ let getViews = async function(videos) {
     }
 }
 
-let nextPage = '';
-let videosWithNoViews = [];
-let getVideoBatch = async function(categoryId) {
+export let nextPage = '';
+export let videosWithNoViews = [];
+export let getVideoBatch = async function(categoryId) {
     try {
         let batch = await fetch(FIND_VIDEO + '&videoCategoryId=' + categoryId)
             .then(function(response) {
@@ -75,7 +75,7 @@ let getVideoBatch = async function(categoryId) {
     }
 }
 
-let getNextPage = async function() {
+export let getNextPage = async function() {
     try {
         let nextBatch = await fetch(FIND_VIDEO + '&pageToken=' + nextPage)
             .then(function(response) {
@@ -92,7 +92,7 @@ let getNextPage = async function() {
     }
 }
 
-let filterForZeroViews = async function(videos) {
+export let filterForZeroViews = async function(videos) {
     try {
         let views = await getViews(videos);
         let zeroViews = [];
@@ -110,7 +110,7 @@ let filterForZeroViews = async function(videos) {
     }
 }
 
-let updateVideoList = function() {
+export let updateVideoList = function() {
     for(let i = 0; i < videosWithNoViews.length - 1; i++) {
         videosWithNoViews[i] = videosWithNoViews[i + 1]
     }
@@ -121,7 +121,7 @@ let updateVideoList = function() {
     }
 }
 
-let getVideo = async function() {
+export let getVideo = async function() {
     try {
         if(videosWithNoViews.length == 0) {
             await filterForZeroViews(await getNextPage());
@@ -133,8 +133,4 @@ let getVideo = async function() {
     } catch(err) {
         console.log(err);
     }
-}
-
-let embedVideo = async function(videoId) {
-
 }

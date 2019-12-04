@@ -160,11 +160,11 @@ h3 {
 
 /***** About section *****/
 
-section#descr h2 {
+.descr h2 {
     margin-top: 2em;
 }
 
-section#descr p {
+.descr p {
     margin: 1em;
     line-height: 2;
 }
@@ -190,7 +190,7 @@ footer ul {
     justify-content: center;
 }
 
-.social-link {
+.contact-link {
     height: 50px;
     width: 50px;
     background-color: white;
@@ -200,7 +200,7 @@ footer ul {
     margin-right: 0.5em;
     transition: 0.2s;
 }
-.social-link:hover {
+.contact-link:hover {
     background-color: rgb(184, 184, 184);
 }
 
@@ -209,11 +209,11 @@ address li {
     size: 50px;
 }
 
-a i {
+.contact-link i {
     color: #c4302b;
     font-size: 30px !important;
 
-    /* Centers icons in social-links */
+    /* Centers icons in contact-links */
     position: relative;
     top: 50%;
     transform: translateY(-50%);
@@ -228,8 +228,23 @@ a i {
     padding-top: 0;
 }
 
-/***** interactive mock-up *****/
+/***** Popup *****/
+iframe {
+    display: block;
+    margin: 0;
+}
+
+iframe.flex-item {
+    flex: 0 0 200px;
+    height: 303px;
+}
+
+#player {
+    margin: 0;
+}
+
 .focus {
+    display: none;
     background-color:rgb(39, 39, 39, 0.9);
     position:fixed;
     width:100%;
@@ -237,29 +252,7 @@ a i {
     top:0px;
     left:0px;
     z-index:1000;
-}
-
-.popup {
-    margin: 10% auto;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 5px;
-    width: 80%;
-    height: 90%;
-    position: relative;
-}
-
-.popup h2 {
-    margin-top: 0;
-}
-
-.box {
-    opacity: 1;
-    background-color: black;
-    height: 60%;
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
+    font-size: 2em;
 }
 
 button {
@@ -273,11 +266,19 @@ button {
     border-radius: 8px;
 }
 
-.new-vid {
+.fa-times {
+    padding: 0 5px;
     float: right;
+    color: white;
+    display: block;
 }
 
-.fa-times {
+.fa-times:hover {
+    border-radius: 4px;
+    background-color: gray;
+}
+
+.new-vid {
     float: right;
 }
 
@@ -328,15 +329,15 @@ button:active {
         font-size: 2em;
     }
 
-    /***** interactive mockup large screen *****/
-    .popup {
-        width: 70%;
-        height: 70%;
-    }
-    
+    /***** interactive *****/
     button {
         padding: 15px 32px;
         font-size: 16px;
+    }
+
+    .flex-item#player {
+        flex: 0 0 70%;
+        height: 90%;
     }
 }
 

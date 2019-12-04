@@ -27,32 +27,6 @@ let cardObjs = [{'name':'Film &amp; Animation', 'img':'../img/film2.jpg'},
                 {'name':'Science &amp; Technology', 'img':'../img/science.jpg'}, 
                 {'name':'Nonprofits &amp; Activism', 'img':'../img/activism.jpg'}];
 
-let cardsAlphabetical = [{'name':'Film &amp; Animation', 'img':'../img/film2.jpg'}, 
-                         {'name':'Music', 'img':'../img/music.jpg'}, 
-                         {'name':'Pets &amp; Animals', 'img':'../img/pets_2.png'}, 
-                         {'name':'Sports', 'img':'../img/sports.jpg'}, 
-                         {'name':'Gaming', 'img':'../img/gaming.jpg'}, 
-                         {'name':'People &amp; Blogs', 'img':'../img/people.jpg'}, 
-                         {'name':'Comedy', 'img':'../img/comedy.jpg'}, 
-                         {'name':'Entertainment', 'img':'../img/entertainment.jpg'}, 
-                         {'name':'Travel &amp; Events', 'img':'../img/travel.jpg'}, 
-                         {'name':'Cars', 'img':'../img/autos.jpg'}, 
-                         {'name':'News &amp; Politics', 'img':'../img/news.jpg'}, 
-                         {'name':'How-to', 'img':'../img/howto.jpg'}, 
-                         {'name':'Education', 'img':'../img/education.jpg'}, 
-                         {'name':'Science &amp; Technology', 'img':'../img/science.jpg'}, 
-                         {'name':'Nonprofits &amp; Activism', 'img':'../img/activism.jpg'}];
-
-cardsAlphabetical.sort(function(card1, card2) {
-        if(card1.name > card2.name) {
-            return 1;
-        } else if(card1.name < card2.name) {
-            return -1;
-        } else {
-            return 0;
-        }
-});
-
 let recCards = subarray(cardObjs, 0, 8);
 let infoCards = subarray(cardObjs, 8, 15);
 
@@ -62,12 +36,13 @@ let makeCard = function (card) {
 
     cardDiv.click(async function(event) {
         try {
-            let focusDiv = $('<div class="focus"></div>')
-            focusDiv.html('<h2>Video Title <i class="fa fa-times" aria-hidden="true"></i></h2>'
-            + '<div class="box"></div><button>YouTube</button><button class="new-vid">New Video</button>');
+            await filterForZeroViews(await getVideoBatch(getIdFromCategoryName(card.name)));
+            while(videosWithNoViews.length == 0) {
+                await filterForZeroViews(await getNextPage());
+            }
 
-            $('main').prepend(focusDiv);
-            //console.log(await getVideoWithZeroViews(getIdFromCategoryName(card.name)));
+            $('.focus').css('display', 'inline-block');
+            player.cueVideoById(await getVideo());
         } catch(err) {
             console.log(err);
         }

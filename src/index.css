@@ -277,10 +277,6 @@ button {
   float: right;
 }
 
-.fa-times {
-  float: right;
-}
-
 button:hover {
   background-color: rgb(240, 59, 53);
 }
