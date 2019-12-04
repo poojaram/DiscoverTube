@@ -2,6 +2,7 @@ import React from 'react';
 import {Component} from 'react';
 import {CardList} from './Card.js'
 import {newCardNames} from './Card.js';
+import {newCardImgLinks} from './Card.js';
 
 export default class App extends Component {
   render() {
@@ -9,9 +10,11 @@ export default class App extends Component {
       <div className="App">
         <Navbar />
         <Title />
-        <CardList cardNames={newCardNames} />
+        <CardList cardNames={newCardNames} imgLinks={newCardImgLinks} />
         <Description />
         <Footer />
+
+        <img href='./img/pets_2.png'></img>
       </div>
     );
   }
@@ -87,19 +90,38 @@ class Footer extends Component {
       <footer id="contact">
         <h3>Connect</h3>
         <address>
-          <ul>
-            <li aria-label="email">
-              <a className="social-link" href="mailto:willrod@uw.edu"><i className="fa fa-envelope" aria-hidden="true"></i></a>
-            </li>
-            <li aria-label="facebook">
-              <a className="social-link" target="_blank" href="https://www.facebook.com"><i className="fa fa-facebook" aria-hidden="true"></i></a>
-            </li>
-            <li aria-label="twitter">
-              <a className="social-link" target="_blank" href="https://twitter.com"><i className="fa fa-twitter" aria-hidden="true"></i></a></li>
-          </ul>
+          <SocialLinkList />
         </address>
         <p>&copy; 2019 DiscoverTube</p>
       </footer>
+    );
+  }
+}
+
+class SocialLinkList extends Component {
+  render() {
+    return(
+      <ul>
+        <SocialLink linkType='email' link='mailto:willrod@uw.edu' icon='fa fa-envelope' />
+        <SocialLink linkType='facebook' link='https://www.facebook.com' icon='fa fa-facebook' />
+        <SocialLink linkType='twitter' link='https://twitter.com' icon='fa fa-twitter' />
+      </ul>
+    );
+  }
+}
+
+class SocialLink extends Component {
+  render() {
+    let linkType = this.props.linkType;
+    let link = this.props.link;
+    let icon = this.props.icon;
+
+    return(
+      <li aria-label={linkType}>
+        <a className="social-link" target="_blank" href={link}>
+          <i className={icon} aria-hidden="true"></i>
+        </a>
+      </li>
     );
   }
 }
