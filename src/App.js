@@ -24,7 +24,7 @@ export default class App extends Component {
     this.setState(stateChanges);
   }
 
-  closePopup = () => {
+  closePopup = (event) => {
     let stateChanges = {
       popupDisplay: 'none'
     };

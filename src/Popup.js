@@ -8,21 +8,21 @@ const API_KEY = /* 'AIzaSyD86p8C2PzxAfn6vGysciDbUW9Hg_Q3ang'; */
 const FIND_VIDEO = 'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=' + VIDEO_BATCH_AMOUNT + '&type=video&videoEmbeddable=true&order=date&key=' + API_KEY;
 const GET_VIEW_COUNT = 'https://www.googleapis.com/youtube/v3/videos?part=statistics&maxResults=' + VIDEO_BATCH_AMOUNT + '&key=' + API_KEY;
 
-let videoCategoryIds = [{'name':'Film &amp; Animation', 'id':1}, 
+let videoCategoryIds = [{'name':'Film & Animation', 'id':1}, 
                         {'name':'Music', 'id':10}, 
-                        {'name':'Pets &amp; Animals', 'id':15}, 
+                        {'name':'Pets & Animals', 'id':15}, 
                         {'name':'Sports', 'id':17}, 
                         {'name':'Gaming', 'id':20}, 
-                        {'name':'People &amp; Blogs', 'id':22}, 
+                        {'name':'People & Blogs', 'id':22}, 
                         {'name':'Comedy', 'id':23}, 
                         {'name':'Entertainment', 'id':24}, 
-                        {'name':'Travel &amp; Events', 'id':19}, 
+                        {'name':'Travel & Events', 'id':19}, 
                         {'name':'Cars', 'id':2}, 
-                        {'name':'News &amp; Politics', 'id':25}, 
+                        {'name':'News & Politics', 'id':25}, 
                         {'name':'How-to', 'id':26}, 
                         {'name':'Education', 'id':27}, 
-                        {'name':'Science &amp; Technology', 'id':28}, 
-                        {'name':'Nonprofits &amp; Activism', 'id':29}];
+                        {'name':'Science & Technology', 'id':28}, 
+                        {'name':'Nonprofits & Activism', 'id':29}];
 
 export class Popup extends Component {
     render() {
@@ -31,7 +31,7 @@ export class Popup extends Component {
         return(
             <div className="focus" style={focusStyle}>
                 <div className="flex-container" style={containerStyle}>
-                    <Player close={this.props.close} cardName={this.props.cardName} />
+                    <Player close={this.props.close} cardName={this.props.cardName} showing={(this.props.popupDisplay == 'block')} />
                 </div>
             </div>
         );
@@ -44,7 +44,8 @@ class Player extends Component {
 
         this.state = {
             nextPage: '',
-            videoId: ''
+            videoId: '',
+            loading: true
         };
     }
 
@@ -58,8 +59,8 @@ class Player extends Component {
         return -1;
     }
 
-    getNewVideo() {
-        console.log(this.state);
+    getNewVideo = () => {
+        this.setState({loading: true});
         fetch(FIND_VIDEO + '&pageToken=' + this.state.nextPage)
             .then((response) => {
                 return response.json();
@@ -67,7 +68,8 @@ class Player extends Component {
             .then((data) => {
                 this.setState({
                     nextPage: data.nextPageToken,
-                    videoId: data.items[0].id.videoId
+                    videoId: data.items[0].id.videoId,
+                    loading: false
                 });
             });
     }
@@ -81,7 +83,8 @@ class Player extends Component {
                 console.log(data);
                 this.setState({
                     nextPage: data.nextPageToken,
-                    videoId: data.items[0].id.videoId
+                    videoId: data.items[0].id.videoId,
+                    loading: false
                 });
             })
             .catch((err) => {
@@ -91,6 +94,7 @@ class Player extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(this.props.cardName != prevProps.cardName) {
+            this.setState({loading: true});
             fetch(FIND_VIDEO + '&videoCategoryId=' + this.getIdFromCategoryName(this.props.cardName))
                 .then((response) => {
                     return response.json();
@@ -99,7 +103,8 @@ class Player extends Component {
                     console.log(data);
                     this.setState({
                         nextPage: data.nextPageToken,
-                        videoId: data.items[0].id.videoId
+                        videoId: data.items[0].id.videoId,
+                        loading: false
                     });
                 })
                 .catch((err) => {
@@ -109,15 +114,27 @@ class Player extends Component {
     }
 
     render() {
-        return(
-            <div>
-                <div className="flex-item" id="player">
-                    <Video height={303} width={640} videoId={this.state.videoId} />
+        if(this.state.loading) {
+            return (
+                <div>
+                    <div className="flex-item" id="player">
+                        <div>LOADING</div>
+                    </div>
+                    <button className="new-vid" onClick={this.getNewVideo}>New Video</button>
+                    <button className="close-vid" onClick={this.props.close}>Close</button>
                 </div>
-                <button className="new-vid" onClick={this.getNewVideo}>New Video</button>
-                <button className="close-vid" onClick={this.props.close}>Close</button>
-            </div>
-        );
+            );
+        } else {
+            return(
+                <div>
+                    <div className="flex-item" id="player">
+                        <Video height={303} width={640} videoId={this.state.videoId} showing={this.props.showing} />
+                    </div>
+                    <button className="new-vid" onClick={this.getNewVideo}>New Video</button>
+                    <button className="close-vid" onClick={this.props.close}>Close</button>
+                </div>
+            );
+        }
     }
 }
 
@@ -135,13 +152,16 @@ class Video extends Component {
             autoplay: 1
           }
         };
-
-        return (
-          <YouTube
-            videoId={this.props.videoId}
-            opts={opts}
-            onReady={this.whenReady}
-          />
-        );
+        
+        if(this.props.showing) {
+            return (
+                <YouTube videoId={this.props.videoId} opts={opts} onReady={this.whenReady} />
+            );
+        } else {
+            return(
+                <div></div>
+            );
+        }
+        
       }
 }
