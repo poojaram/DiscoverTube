@@ -34,7 +34,6 @@ export default class App extends Component {
 
 
   render() {
-    console.log(this.state);
     return (
       <div className="App">
         <Popup close={this.closePopup} popupDisplay={this.state.popupDisplay} cardName={this.state.cardName} />

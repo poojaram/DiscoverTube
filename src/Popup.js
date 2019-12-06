@@ -1,10 +1,11 @@
 import React from 'react';
 import YouTube from 'react-youtube';
 import {Component} from 'react';
+import 'whatwg-fetch';
 
-const VIDEO_BATCH_AMOUNT = 1;
-const API_KEY = /* 'AIzaSyD86p8C2PzxAfn6vGysciDbUW9Hg_Q3ang'; */
-                   'AIzaSyBy50_Fpj1Q9vbPgw4vQmdSj_Lf9RtHmbc';
+const VIDEO_BATCH_AMOUNT = 5;
+const API_KEY = 'AIzaSyD86p8C2PzxAfn6vGysciDbUW9Hg_Q3ang';
+                   /* 'AIzaSyBy50_Fpj1Q9vbPgw4vQmdSj_Lf9RtHmbc'; */
 const FIND_VIDEO = 'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=' + VIDEO_BATCH_AMOUNT + '&type=video&videoEmbeddable=true&order=date&key=' + API_KEY;
 const GET_VIEW_COUNT = 'https://www.googleapis.com/youtube/v3/videos?part=statistics&maxResults=' + VIDEO_BATCH_AMOUNT + '&key=' + API_KEY;
 
@@ -23,6 +24,8 @@ let videoCategoryIds = [{'name':'Film & Animation', 'id':1},
                         {'name':'Education', 'id':27}, 
                         {'name':'Science & Technology', 'id':28}, 
                         {'name':'Nonprofits & Activism', 'id':29}];
+
+let today = new Date();
 
 export class Popup extends Component {
     render() {
@@ -45,7 +48,9 @@ class Player extends Component {
         this.state = {
             nextPage: '',
             videoId: '',
-            loading: true
+            loading: true,
+            videos: [],
+            minViewCount: 500
         };
     }
 
@@ -59,57 +64,94 @@ class Player extends Component {
         return -1;
     }
 
-    getNewVideo = () => {
-        this.setState({loading: true});
-        fetch(FIND_VIDEO + '&pageToken=' + this.state.nextPage)
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                this.setState({
-                    nextPage: data.nextPageToken,
-                    videoId: data.items[0].id.videoId,
-                    loading: false
-                });
+    /*
+    FIND_VIDEO + '&pageToken=' + this.state.nextPage
+    FIND_VIDEO + '&videoCategoryId=' + this.getIdFromCategoryName(this.props.cardName)
+    */
+
+    getVideos = (url) => {
+        fetch(url)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            let url = GET_VIEW_COUNT + '&id=';
+            for(let i = 0; i < data.items.length - 1; i++) {
+                url += data.items[i].id.videoId + ', ';
+            }
+            url += data.items[data.items.length - 1].id.videoId;
+
+            this.setState({
+                nextPage: data.nextPageToken
             });
+
+            return fetch(url);
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+            return this.filterByViewCount(data);
+        })
+        .then((filteredData) => {
+            console.log(filteredData);
+            let nextVideoId = filteredData[0];
+            let newVideoList = [];
+            for(let i = 0; i < filteredData.length - 1; i++) {
+                newVideoList[i] = filteredData[i + 1];
+            }
+
+            this.setState({
+                videos: newVideoList,
+                videoId: nextVideoId,
+                loading: false
+            });
+        })
+        .catch((err) => {
+            console.log(today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() + '.' + today.getMilliseconds());
+            console.log(err);
+            console.log(this.state);
+        });
+    } 
+
+    //Removes videos with more than {this.state.viewCount} views from {this.state.videos}
+    filterByViewCount = (data) => {
+        let zeroViews = [];
+        let index = 0;
+        for(let i = 0; i < data.items.length; i++) {
+            if(data.items[i].statistics.viewCount <= this.state.minViewCount) {
+                zeroViews[index] = data.items[i].id;
+                index++;
+            }
+        }
+
+        return zeroViews;
+    }
+
+    //Gets and sets next videoId from list, removes from {this.state.videos}
+    getNextVideoId = () => {
+        let nextVideoId = this.state.videos[0].id.videoId;
+
+        let newVideoList = [];
+        for(let i = 0; i < this.state.videos.length - 1; i++) {
+            newVideoList[i] = this.state.videos[i + 1];
+        }
+
+        this.setState({
+            videos: newVideoList,
+            videoId: nextVideoId
+        });
     }
     
     componentDidMount() {
-        fetch(FIND_VIDEO + '&videoCategoryId=' + this.getIdFromCategoryName(this.props.cardName))
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                console.log(data);
-                this.setState({
-                    nextPage: data.nextPageToken,
-                    videoId: data.items[0].id.videoId,
-                    loading: false
-                });
-            })
-            .catch((err) => {
-                console.log(err);
-            }); 
+        this.getVideos(FIND_VIDEO + '&videoCategoryId=' + this.getIdFromCategoryName(this.props.cardName));
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(this.props.cardName != prevProps.cardName) {
             this.setState({loading: true});
-            fetch(FIND_VIDEO + '&videoCategoryId=' + this.getIdFromCategoryName(this.props.cardName))
-                .then((response) => {
-                    return response.json();
-                })
-                .then((data) => {
-                    console.log(data);
-                    this.setState({
-                        nextPage: data.nextPageToken,
-                        videoId: data.items[0].id.videoId,
-                        loading: false
-                    });
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+            this.getVideos(FIND_VIDEO + '&videoCategoryId=' + this.getIdFromCategoryName(this.props.cardName));
         }
     }
 
@@ -120,7 +162,7 @@ class Player extends Component {
                     <div className="flex-item" id="player">
                         <div>LOADING</div>
                     </div>
-                    <button className="new-vid" onClick={this.getNewVideo}>New Video</button>
+                    <button className="new-vid">New Video</button>
                     <button className="close-vid" onClick={this.props.close}>Close</button>
                 </div>
             );
@@ -130,7 +172,7 @@ class Player extends Component {
                     <div className="flex-item" id="player">
                         <Video height={303} width={640} videoId={this.state.videoId} showing={this.props.showing} />
                     </div>
-                    <button className="new-vid" onClick={this.getNewVideo}>New Video</button>
+                    <button className="new-vid" onClick={this.getNextVideoId}>New Video</button>
                     <button className="close-vid" onClick={this.props.close}>Close</button>
                 </div>
             );
@@ -165,3 +207,30 @@ class Video extends Component {
         
       }
 }
+
+
+
+    //Gets the view count of every video in {this.state.videos}
+    /* getViewCount = (data) => {
+        let url = GET_VIEW_COUNT + '&id=';
+        for(let i = 0; i < this.state.videos.length - 1; i++) {
+            url += this.state.videos[i].id.videoId + ', ';
+        }
+        url += this.state.videos[this.state.videos.length - 1].id.videoId;
+
+        fetch(url)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                this.setState({
+                    views: data.items,
+                    loading: false
+                });
+            })
+            .catch((err) => {
+                console.log(today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() + '.' + today.getMilliseconds());
+                console.log(err);
+                console.log(this.state);
+            });
+    }  */ 
