@@ -3,9 +3,9 @@ import YouTube from 'react-youtube';
 import {Component} from 'react';
 import 'whatwg-fetch';
 
-const VIDEO_BATCH_AMOUNT = 5;
+const VIDEO_BATCH_AMOUNT = 50;
 const API_KEY = 'AIzaSyD86p8C2PzxAfn6vGysciDbUW9Hg_Q3ang';
-                   /* 'AIzaSyBy50_Fpj1Q9vbPgw4vQmdSj_Lf9RtHmbc'; */
+                  /*  'AIzaSyBy50_Fpj1Q9vbPgw4vQmdSj_Lf9RtHmbc'; */
 const FIND_VIDEO = 'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=' + VIDEO_BATCH_AMOUNT + '&type=video&videoEmbeddable=true&order=date&key=' + API_KEY;
 const GET_VIEW_COUNT = 'https://www.googleapis.com/youtube/v3/videos?part=statistics&maxResults=' + VIDEO_BATCH_AMOUNT + '&key=' + API_KEY;
 
@@ -50,7 +50,9 @@ class Player extends Component {
             videoId: '',
             loading: true,
             videos: [],
-            minViewCount: 500
+            minViewCount: 500,
+            height: window.innerHeight,
+            width: window.innerWidth
         };
     }
 
@@ -91,11 +93,9 @@ class Player extends Component {
             return response.json();
         })
         .then((data) => {
-            console.log(data);
             return this.filterByViewCount(data);
         })
         .then((filteredData) => {
-            console.log(filteredData);
             let nextVideoId = filteredData[0];
             let newVideoList = [];
             for(let i = 0; i < filteredData.length - 1; i++) {
@@ -131,7 +131,7 @@ class Player extends Component {
 
     //Gets and sets next videoId from list, removes from {this.state.videos}
     getNextVideoId = () => {
-        let nextVideoId = this.state.videos[0].id.videoId;
+        let nextVideoId = this.state.videos[0];
 
         let newVideoList = [];
         for(let i = 0; i < this.state.videos.length - 1; i++) {
@@ -153,6 +153,18 @@ class Player extends Component {
             this.setState({loading: true});
             this.getVideos(FIND_VIDEO + '&videoCategoryId=' + this.getIdFromCategoryName(this.props.cardName));
         }
+
+        if(this.state.videos.length == 0 && !this.state.loading) {
+            this.setState({loading: true});
+            this.getVideos(FIND_VIDEO + '&pageToken=' + this.state.nextPage);
+        }
+
+        if(this.state.height != window.innerHeight || this.state.width != window.innerWidth) {
+            this.setState({
+                height: window.innerHeight,
+                width: window.innerWidth
+            });
+        }
     }
 
     render() {
@@ -167,10 +179,18 @@ class Player extends Component {
                 </div>
             );
         } else {
+            console.log('Height: ' + window.innerHeight + ', Width: ' + window.innerWidth);
+            let height = window.innerHeight * 0.8;
+            let width = window.innerWidth;
+            if(this.state.width > 598) {
+                width *= 0.7;
+                height = window.innerHeight * 0.7;
+            }
+
             return(
                 <div>
                     <div className="flex-item" id="player">
-                        <Video height={303} width={640} videoId={this.state.videoId} showing={this.props.showing} />
+                        <Video height={height} width={width} videoId={this.state.videoId} showing={this.props.showing} />
                     </div>
                     <button className="new-vid" onClick={this.getNextVideoId}>New Video</button>
                     <button className="close-vid" onClick={this.props.close}>Close</button>

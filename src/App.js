@@ -87,25 +87,24 @@ class Description extends Component {
   render() {
     return(
       <section id="descr">
-        <div className="container">
-            <h2>About DiscoverTube</h2>
-            <p>Discover a world of unseen footage with <span className="bold">DiscoverTube</span>. Watch never
-                before seen videos from YouTube and be the first in the entire world to ever watch them!</p>
+        <div class="container">
+          <h2>About DiscoverTube</h2>
+          <p>Discover a world of unseen footage with <span class="bold">DiscoverTube</span>. Watch never
+              before seen videos from YouTube and be the first in the entire world to ever watch them!</p>
 
-            <h3>What is DiscoverTube?</h3>
-            <p>DiscoverTube allows you to quickly find <span className="bold">never before seen</span> YouTube videos related to your
-                interests. Specifically DiscoverTube finds YouTube videos with zero views in the category
-                of your choice.</p>
+          <h3>What is DiscoverTube?</h3>
+          <p>DiscoverTube allows you to quickly find YouTube videos that almost no one <span class="bold">has ever seen</span> related to your
+              interests. Specifically DiscoverTube finds YouTube videos with minimal views in the category of your choice.</p>
 
-            <h3>Simple to Use</h3>
-            <p>With <span className="bold">just a few clicks</span> you can find and watch any and every unwatched YouTube video.
-                Finding new content has never been easier.</p>
+          <h3>Simple to Use</h3>
+          <p>With <span class="bold">just a few clicks</span> you can find and watch any and every barely seen YouTube video.
+              Finding new content has never been easier.</p>
 
-            <h3>Be the Very First</h3>
-            <p>Be the first to ever watch a video and potentially <span className="bold">discover something amazing</span>. Discover
-                something
-                new right now!</p>
-        </div>
+          <h3>Be the Very First</h3>
+          <p>Be the first to ever watch a video and potentially <span class="bold">discover something amazing</span>. Discover
+              something
+              new right now!</p>
+          </div>
       </section>
     );
   }
@@ -145,7 +144,7 @@ class SocialLink extends Component {
 
     return(
       <li aria-label={linkType}>
-        <a className="social-link" target="_blank" href={link}>
+        <a className="contact-link" target="_blank" href={link}>
           <i className={icon} aria-hidden="true"></i>
         </a>
       </li>
