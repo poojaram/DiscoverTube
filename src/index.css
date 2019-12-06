@@ -244,6 +244,20 @@ iframe.flex-item {
   height: 80%;
 }
 
+.loading {
+  font-size: 3em;
+  color: white;
+  background-color:rgb(70, 70, 70);
+  border-radius: 8px;
+}
+
+.error {
+  font-size: 2em;
+  color: white;
+  background-color:rgb(70, 70, 70);
+  border-radius: 8px;
+}
+
 .focus {
   display: none;
   background-color:rgb(39, 39, 39, 0.9);

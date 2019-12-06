@@ -49,6 +49,7 @@ class Player extends Component {
             nextPage: '',
             videoId: '',
             loading: true,
+            error: false,
             videos: [],
             minViewCount: 500,
             height: window.innerHeight,
@@ -65,11 +66,6 @@ class Player extends Component {
     
         return -1;
     }
-
-    /*
-    FIND_VIDEO + '&pageToken=' + this.state.nextPage
-    FIND_VIDEO + '&videoCategoryId=' + this.getIdFromCategoryName(this.props.cardName)
-    */
 
     getVideos = (url) => {
         fetch(url)
@@ -105,13 +101,17 @@ class Player extends Component {
             this.setState({
                 videos: newVideoList,
                 videoId: nextVideoId,
-                loading: false
+                loading: false,
+                error: false
             });
         })
         .catch((err) => {
             console.log(today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() + '.' + today.getMilliseconds());
             console.log(err);
-            console.log(this.state);
+
+            this.setState({
+                error: true
+            });
         });
     } 
 
@@ -151,7 +151,7 @@ class Player extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(this.props.cardName != prevProps.cardName) {
             this.setState({loading: true});
-            this.getVideos(FIND_VIDEO + '&videoCategoryId=' + this.getIdFromCategoryName(this.props.cardName));
+            this.getVideos(FIND_VIDEO + '&videoCategoryId=' +  this.getIdFromCategoryName(this.props.cardName));
         }
 
         if(this.state.videos.length == 0 && !this.state.loading) {
@@ -168,18 +168,21 @@ class Player extends Component {
     }
 
     render() {
-        if(this.state.loading) {
+        if(this.state.error) {
             return (
                 <div>
-                    <div className="flex-item" id="player">
-                        <div>LOADING</div>
-                    </div>
-                    <button className="new-vid">New Video</button>
+                    <ErrorMessage errorLog={this.state.errorLog} />
+                    <button className="close-vid" onClick={this.props.close}>Close</button>
+                </div>
+            );
+        } else if(this.state.loading) {
+            return (
+                <div>
+                    <p className='loading'>LOADING</p>
                     <button className="close-vid" onClick={this.props.close}>Close</button>
                 </div>
             );
         } else {
-            console.log('Height: ' + window.innerHeight + ', Width: ' + window.innerWidth);
             let height = window.innerHeight * 0.8;
             let width = window.innerWidth;
             if(this.state.width > 598) {
@@ -228,29 +231,12 @@ class Video extends Component {
       }
 }
 
-
-
-    //Gets the view count of every video in {this.state.videos}
-    /* getViewCount = (data) => {
-        let url = GET_VIEW_COUNT + '&id=';
-        for(let i = 0; i < this.state.videos.length - 1; i++) {
-            url += this.state.videos[i].id.videoId + ', ';
-        }
-        url += this.state.videos[this.state.videos.length - 1].id.videoId;
-
-        fetch(url)
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                this.setState({
-                    views: data.items,
-                    loading: false
-                });
-            })
-            .catch((err) => {
-                console.log(today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() + '.' + today.getMilliseconds());
-                console.log(err);
-                console.log(this.state);
-            });
-    }  */ 
+class ErrorMessage extends Component {
+    render() {
+        return(
+            <div>
+                <p className='error'>Error: Video unable to load</p>
+            </div>
+        );
+    }
+}
