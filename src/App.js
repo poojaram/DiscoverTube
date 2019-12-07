@@ -5,7 +5,7 @@ import {newCardNames} from './Card.js';
 import {newCardImgLinks} from './Card.js';
 import {Popup} from './Popup.js';
 
-import SignUpForm from './components/signup/SignUpForm';
+import SignUpForm from './SignUpForm';
 import firebase from 'firebase/app';
 
 import ChirperHeader from './components/chirper/ChirperHeader';
