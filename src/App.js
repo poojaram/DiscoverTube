@@ -8,11 +8,30 @@ import {Popup} from './Popup.js';
 import SignUpForm from './components/signup/SignUpForm';
 import firebase from 'firebase/app';
 
-import ChirperHeader from './components/chirper/ChirperHeader';
-import ChirpBox from './components/chirper/ChirpBox';
-import ChirpList from './components/chirper/ChirpList';
+import ChirperHeader from './components/chirper/ChirperHeader.js';
+import ChirpBox from './components/chirper/ChirpBox.js';
+import ChirpList from './components/chirper/ChirpList.js';
 
-class App extends Component {
+require('firebase/auth');
+require('firebase/analytics');
+
+
+// Your web app's Firebase configuration
+var firebaseConfig = {
+  apiKey: "AIzaSyCi-87qWZIwWFkt3o2LhqNv3NAfoiLm3XY",
+  authDomain: "discovertube-cd88d.firebaseapp.com",
+  databaseURL: "https://discovertube-cd88d.firebaseio.com",
+  projectId: "discovertube-cd88d",
+  storageBucket: "discovertube-cd88d.appspot.com",
+  messagingSenderId: "969329114542",
+  appId: "1:969329114542:web:15efef9124e83a7da11c3f",
+  measurementId: "G-WCYMFVHMJ9"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+
+export default class App extends Component {
   constructor(props){
     super(props);
     this.state = {loading:true};
@@ -55,7 +74,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
+    firebase.auth().onAuthStateChanged((firebaseUser) => {
       
       // the page will "stop" loading once an authentication event has been received 
       this.setState({loading:false});
@@ -69,9 +88,10 @@ class App extends Component {
     });
 
   }
-  componentWillUnmount() {
+
+  /* componentWillUnmount() {
     this.authUnRegFunc();
-  }
+  } */
 
   render() {
 
@@ -99,7 +119,7 @@ class App extends Component {
       content = (
         <div>
           <ChirperHeader user={this.state.user}>
-            /* log out button is child element */
+            {/* log out button is child element */}
             {this.state.user &&
               <button className="btn btn-warning" 
                       onClick={() => this.handleSignOut()}>
@@ -142,7 +162,7 @@ class WelcomeHeader extends Component {
   }
 }
 
-export default class App extends Component {
+/* export default class App extends Component {
   constructor (props) {
     super(props);
 
@@ -183,7 +203,7 @@ export default class App extends Component {
     );
   }
 }
-
+ */
 class Navbar extends Component {
   render() {
     return(

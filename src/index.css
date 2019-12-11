@@ -7,6 +7,16 @@ body {
   margin: 0;
 }
 
+/***** Sign in page *****/
+
+.form-group input {
+  float: right;
+}
+
+.form-group .sign-in {
+  float: right;
+}
+
 /***** Navigation bar *****/
 
 .navbar-content {
