@@ -14,11 +14,6 @@ body {
   position: relative;
 }
 
-.body {
-  margin: 0 auto;
-  padding-top: 1.5em;
-}
-
 /***** Navigation bar *****/
 
 .navbar-content {
@@ -50,11 +45,39 @@ ul {
 
 a {
   text-decoration: none;
+  color: white;
+}
+
+.username {
+  float: right;
+  font-size: 2em;
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 1em;
+}
+
+.username p {
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-top: 0.25em;
+  display: inline-block;
+
   font-family: 'Amatic SC', cursive;
-  color: black;
+}
+
+.signout-btn {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 0;
+  margin-left: 1em;
+  background-color: #9e2722;
 }
 
 .navbar a {
+  font-family: 'Amatic SC', cursive;
   display: block;
   font-size: 2em;
   color: black;
@@ -100,6 +123,7 @@ h1 {
   margin-bottom: 0;
   text-align: center;
   font-size: 4em;
+  margin-top: 1em;
 }
 
 h2 {
@@ -111,7 +135,7 @@ h2 {
 }
 
 .title {
-  height: 400px;
+  height: 200px;
   text-align: center;
 }
 
@@ -124,6 +148,17 @@ header {
 
 .sub-title {
   margin-top: 0;
+}
+
+.div-buttons {
+  padding-top: 1em;
+  width: 80%;
+  margin: auto;
+  padding-bottom: 8em;
+}
+
+.signin-btn {
+  float: right;
 }
 
 /***** Topic Cards *****/
@@ -319,6 +354,12 @@ button {
   float: right;
 }
 
+.player-btn.flex-item {
+  flex: 0 0 0;
+  height: auto;
+  border-width: 0px;
+}
+
 button:hover {
   background-color: rgb(240, 59, 53);
 }
@@ -326,6 +367,10 @@ button:hover {
 button:active {
   background-color: #8b1e27;
 }
+
+/***** Saved Videos Page *****/
+
+
 
 /***** Larger Screen Style *****/
 @media (min-width: 598px) {
@@ -357,6 +402,10 @@ button:active {
       height: 1200px;
   }
 
+  .title {
+    height: auto;
+  }
+
   .title h1 {
       font-size: 10em;
       margin-top: 0.75em;
@@ -366,10 +415,25 @@ button:active {
       font-size: 2em;
   }
 
+  .div-buttons {
+    width: 400px;
+  }
+
+  /***** Watch Section *****/
+  #watch h1 {
+    padding-top: 0.5em;
+    font-size: 6em;
+  }
+
   /***** About section *****/
   #descr p {
     margin-left: 5em;
     margin-right: 5em;
+  }
+
+  #descr h1 {
+    padding-top: 0.5em;
+    font-size: 6em;
   }
 
   /***** interactive *****/
@@ -381,6 +445,12 @@ button:active {
   .flex-item#player {
       flex: 0 0 70%;
       height: 70%;
+  }
+
+  /***** Saved Videos Page *****/
+  #saved h1 {
+    padding-top: 0.5em;
+    font-size: 6em;
   }
 }
 

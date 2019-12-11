@@ -1,6 +1,7 @@
 import React from 'react';
 import YouTube from 'react-youtube';
 import {Component} from 'react';
+import firebase from 'firebase/app';
 import 'whatwg-fetch';
 
 const VIDEO_BATCH_AMOUNT = 50;
@@ -34,7 +35,7 @@ export class Popup extends Component {
         return(
             <div className="focus" style={focusStyle}>
                 <div className="flex-container" style={containerStyle}>
-                    <Player close={this.props.close} cardName={this.props.cardName} showing={(this.props.popupDisplay == 'block')} />
+                    <Player close={this.props.close} cardName={this.props.cardName} showing={(this.props.popupDisplay == 'block')} currentUsername={this.props.currentUsername} />
                 </div>
             </div>
         );
@@ -79,8 +80,11 @@ class Player extends Component {
             }
             url += data.items[data.items.length - 1].id.videoId;
 
+            let rawVideos = data.items;
+
             this.setState({
-                nextPage: data.nextPageToken
+                nextPage: data.nextPageToken,
+                rawVideos: rawVideos
             });
 
             return fetch(url);
@@ -143,6 +147,25 @@ class Player extends Component {
             videoId: nextVideoId
         });
     }
+
+    saveVideo = () => {
+        if(this.props.currentUsername != 'Guest') {
+            let curVideoId = '';
+            let videoIndex = 0;
+            while(curVideoId != this.state.videoId) {
+                curVideoId = this.state.rawVideos[videoIndex].id.videoId;
+                videoIndex++;
+            }
+
+            let newLike = {
+                videoId: this.state.videoId,
+                videoTitle: this.state.rawVideos[videoIndex].snippet.title,
+                videoImg: this.state.rawVideos[videoIndex].snippet.thumbnails
+            };
+
+            firebase.database().ref('likes/' + this.props.currentUsername).push(newLike);
+        }
+    }
     
     componentDidMount() {
         this.getVideos(FIND_VIDEO + '&videoCategoryId=' + this.getIdFromCategoryName(this.props.cardName));
@@ -195,8 +218,11 @@ class Player extends Component {
                     <div className="flex-item" id="player">
                         <Video height={height} width={width} videoId={this.state.videoId} showing={this.props.showing} />
                     </div>
-                    <button className="new-vid" onClick={this.getNextVideoId}>New Video</button>
-                    <button className="close-vid" onClick={this.props.close}>Close</button>
+                    <div className="flex-container">
+                        <button className="flex-item player-btn" onClick={this.props.close}>Close</button>
+                        <button className="flex-item player-btn" onClick={this.saveVideo}>Save</button>
+                        <button className="flex-item player-btn" onClick={this.getNextVideoId}>Next</button>
+                    </div>
                 </div>
             );
         }

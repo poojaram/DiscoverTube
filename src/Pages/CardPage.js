@@ -49,7 +49,7 @@ class Card extends Component {
         return(
             <div className="flex-item card" onClick={this.handleClick} style = {style}>
                 <div className="card-title">
-                <h3>{cardName}</h3>
+                    <h3>{cardName}</h3>
                 </div>
             </div>
         );

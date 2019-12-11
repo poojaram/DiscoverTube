@@ -1,0 +1,61 @@
+form {
+    padding-top: 3em;
+    width: 100%;
+    margin: auto;
+}
+
+.form-title {
+    margin-top: 0.5em;
+}
+
+.signup-input {
+    display: block;
+    width: 90%;
+    margin: auto;
+    height: 3em;
+    font-size: 1em;
+}
+
+.avatar {
+    border-radius: 50%;
+    display: block;
+    margin: auto;
+    padding: 1em;
+    width: 7em;
+    height: 7em;
+}
+
+.confirm-btn {
+    display: block;
+    margin: auto;
+}
+
+.input-title {
+    display: block;
+    margin-left: 5%;
+}
+
+.input-group {
+   margin-top: 1em;
+   margin-bottom: 1em;
+}
+
+@media (min-width: 598px) {
+    .signup-input {
+        width: 60%;
+    }
+
+    .input-title {
+        margin-left: 20%;
+    }
+}
+
+@media (min-width: 900px) {
+    .signup-input {
+        width: 40%;
+    }
+
+    .input-title {
+        margin-left: 30%;
+    }
+}
