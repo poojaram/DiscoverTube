@@ -68,6 +68,7 @@ export class CardList extends Component {
   
       return(
         <section id="watch">
+            <h1>DiscoverTube</h1>
             <div className="flex-container">
                 {cards}
             </div>
