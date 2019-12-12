@@ -3,19 +3,35 @@ import {NavLink} from 'react-router-dom';
 
 class WelcomePage extends Component {
     render() {
-        return(
-            <header>
-                <Title />
-                <div className='div-buttons'>
-                    <NavLink to="/signup">
-                        <button className='signup-btn'>Sign Up</button>
-                    </NavLink>
-                    <NavLink to="/signin">
-                        <button className='signin-btn'>Sign In</button>
-                    </NavLink>
-                </div>
-            </header>
-        );
+        if(this.props.currentUsername == 'Guest') {
+            return(
+                <header>
+                    <Title />
+                    <div className='div-buttons'>
+                        <NavLink to="/signup">
+                            <button className='signup-btn'>Sign Up</button>
+                        </NavLink>
+                        <NavLink to="/signin">
+                            <button className='signin-btn'>Sign In</button>
+                        </NavLink>
+                    </div>
+                </header>
+            );
+        } else {
+            return(
+                <header>
+                    <Title />
+                    <div className='div-buttons'>
+                        <NavLink to="/watch">
+                            <button className='signin-btn'>Watch</button>
+                        </NavLink>
+                        <NavLink to="/savedvideos">
+                            <button className='signup-btn'>Library</button>
+                        </NavLink>
+                    </div>
+                </header>
+            );
+        }
     }
 }
 

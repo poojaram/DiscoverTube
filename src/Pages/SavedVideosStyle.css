@@ -1,0 +1,40 @@
+.player-btn.library {
+    display: block;
+    margin: auto;
+    margin-top: 2em;
+}
+
+.flex-item.video-card {
+    flex: 0 0 320px;
+    height: 231px;
+    color: black;
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+
+.card-title.video-title {
+    height: 45px;
+}
+
+@media (min-width: 598px) {
+    .flex-item.video-card {
+        flex: 0 0 480px;
+        height: 370px;
+        color: white;
+        background-color: black;
+    }
+    
+    .card-title.video-title {
+        height: 49px;
+    }
+
+    #player.library {
+        margin: auto;
+        display: block;
+    }
+
+    #player-holder.library {
+        width: 70%;
+        margin: auto;
+    }
+}

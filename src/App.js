@@ -3,7 +3,7 @@ import {Component} from 'react';
 import {CardList} from './Pages/CardPage.js'
 import {newCardNames} from './Pages/CardPage.js';
 import {newCardImgLinks} from './Pages/CardPage.js';
-import {Popup} from './Popup.js';
+import Popup from './Popup.js';
 import {Route, Switch, Redirect, NavLink} from 'react-router-dom';
 import firebase from 'firebase';
 import 'firebase/auth';
@@ -24,15 +24,14 @@ export default class App extends Component {
     };
   }
 
-  handleSignUp = (email, password, handle, avatar) => {
+  handleSignUp = (email, password, handle) => {
     this.setState({errorMessage:null});
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         let user = userCredentials.user;
         return user.updateProfile({
-          displayName: handle,
-          photoURL: avatar
+          displayName: handle
         });
       })
       .catch((error) => {
@@ -76,12 +75,27 @@ export default class App extends Component {
     this.setState(stateChanges);
   }
 
+  updateSavedVideos = () => {
+    if(this.state.user) {
+      this.videosRef = firebase.database().ref('likes/' + this.state.user.uid);
+      this.videosRef.on('value', (snapshot) => {
+        this.setState({
+          videoInfo: snapshot.val()
+        });
+      });
+    }
+  }
+
   componentDidMount() {
     this.authUnRedFunc = firebase.auth().onAuthStateChanged((user) => {
       if(user) {
-        this.setState({
-          user: user,
-          loading: false
+        this.videosRef = firebase.database().ref('likes/' + user.uid);
+        this.videosRef.on('value', (snapshot) => {
+          this.setState({
+            videoInfo: snapshot.val(),
+            user: user,
+            loading: false
+          });
         });
       } else {
         this.setState({
@@ -97,47 +111,72 @@ export default class App extends Component {
   }
 
   render() {
-    let renderCardList = () => {
-      return <CardList cardNames={newCardNames} imgLinks={newCardImgLinks} open={this.openPopup} />;
-    };
-
-    let renderSignupPage = () => {
-      return <SignupPage signUpCallback={this.handleSignUp} />;
-    };
-
     let renderUsername = () => {
       if(this.state.user) {
-        console.log(this.state.user.displayName);
         return this.state.user.displayName;
       } else {
         return 'Guest';
       }
     };
 
-    let renderSignInPage = () => {
-      return <SignInPage signInCallback={this.handleSignIn} />
+    let renderLandingPage = () => {
+      return <LandingPage currentUsername={renderUsername()} />;
     };
 
-    let renderSavedVideosPage = () => {
-      return <SavedVideosPage currentUsername={renderUsername} />
-    };
+    if(this.state.user) {
+      let renderCardList = () => {
+        return <CardList cardNames={newCardNames} imgLinks={newCardImgLinks} open={this.openPopup} />;
+      };
 
-    return (
-      <div className="App">
-        <Popup close={this.closePopup} popupDisplay={this.state.popupDisplay} cardName={this.state.cardName} currentUsername={renderUsername()} />
-        <Navbar currentUsername={renderUsername()} signoutCallback={this.handleSignOut} />
-        <Switch>
-          <Route exact path='/' component={LandingPage} />
-          <Route path='/watch' component={renderCardList} />
-          <Route path='/about' component={AboutPage} />
-          <Route path='/signup' render={renderSignupPage} />
-          <Route path='/signin' render={renderSignInPage} />
-          <Route path='/savedvideos' render={renderSavedVideosPage} />
-          <Redirect to='/' />
-        </Switch>
-        <Footer />
-      </div>
-    );
+      let renderUserId = () => {
+        if(this.state.user) {
+          return this.state.user.uid;
+        } else {
+          return null;
+        }
+      }
+
+      let renderSavedVideosPage = () => {
+        return <SavedVideosPage videoInfo={this.state.videoInfo} />
+      };
+
+      return (
+        <div className="App">
+          <Popup close={this.closePopup} popupDisplay={this.state.popupDisplay} cardName={this.state.cardName} currentUsername={renderUserId()} savedVideosCallback={this.updateSavedVideos} />
+          <Navbar currentUsername={renderUsername()} signoutCallback={this.handleSignOut} />
+          <Switch>
+            <Route exact path='/' component={LandingPage} />
+            <Route path='/watch' component={renderCardList} />
+            <Route path='/about' component={AboutPage} />
+            <Route path='/savedvideos' render={renderSavedVideosPage} />
+            <Redirect to='/' />
+          </Switch>
+          <Footer />
+        </div>
+      );
+    } else {
+      let renderSignupPage = () => {
+        return <SignupPage signUpCallback={this.handleSignUp} />;
+      };
+
+      let renderSignInPage = () => {
+        return <SignInPage signInCallback={this.handleSignIn} />
+      };
+
+      return(
+        <div className="App">
+          <Navbar currentUsername={renderUsername()} signoutCallback={this.handleSignOut} />
+          <Switch>
+            <Route exact path='/' render={renderLandingPage} />
+            <Route path='/signup' render={renderSignupPage} />
+            <Route path='/signin' render={renderSignInPage} />
+            <Route path='/about' component={AboutPage} />
+            <Redirect to='/signin' />
+          </Switch>
+          <Footer />
+        </div>
+      );
+    }
   }
 }
 
@@ -160,6 +199,7 @@ class Navbar extends Component {
                 <ul>
                     <li onClick={() => document.getElementById("menu").checked = false} ><NavLink exact to="/">Home</NavLink></li>
                     <li onClick={() => document.getElementById("menu").checked = false}><NavLink to="/watch">Watch</NavLink></li>
+                    <li onClick={() => document.getElementById("menu").checked = false}><NavLink to="/savedvideos">Library</NavLink></li>
                     <li onClick={() => document.getElementById("menu").checked = false}><NavLink to="/about">About</NavLink></li>
                     <li className='username'>
                       <p>{this.props.currentUsername}</p>

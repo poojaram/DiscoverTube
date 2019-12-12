@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import './SignUpPageStyle.css';
+import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
+import './SignUpPageStyle.css';
 
 class SignUpForm extends Component {
   constructor(props){
@@ -9,8 +9,7 @@ class SignUpForm extends Component {
     this.state = {
       'email': undefined,
       'password': undefined,
-      'handle': undefined,
-      'avatar': ''
+      'handle': undefined
     }; 
   }
 
@@ -25,8 +24,7 @@ class SignUpForm extends Component {
 
   handleSignUp = (event) => {
     event.preventDefault();
-    let avatar = this.state.avatar || 'img/test.png';
-    this.props.signUpCallback(this.state.email, this.state.password, this.state.handle, avatar);
+    this.props.signUpCallback(this.state.email, this.state.password, this.state.handle);
   }
 
   render() {
@@ -61,21 +59,11 @@ class SignUpForm extends Component {
             onChange={this.handleChange}
             />
         </div>
-
-        <div className='input-group'>
-          <label className='input-title' htmlFor='avatar'>Avatar Image URL</label>
-          <input className='signup-input'  
-            id='avatar' 
-            name='avatar' 
-            placeholder='http://www.example.com/my-picture.jpg' 
-            onChange={this.handleChange}
-            />
-            <img className='avatar' src={this.state.avatar || '../img/test.png'} alt='avatar preview' />
-        </div>
         
         <div className='input-group'>
-          <NavLink exact to="/">
-            <button className='confirm-btn' onClick={this.handleSignUp}>Sign Up</button>
+          <button className='signup-btn' onClick={this.handleSignUp}>Sign Up</button>
+          <NavLink to="/signin">
+            <button className='signin-btn'>Sign In</button>
           </NavLink>
         </div>
       </form>

@@ -75,4 +75,4 @@ export class CardList extends Component {
         </section>
       );
     }
-  }
+}

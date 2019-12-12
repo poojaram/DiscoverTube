@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
+import './SignUpPageStyle.css';
 
 class SignInForm extends Component {
     constructor(props){
@@ -50,8 +51,9 @@ class SignInForm extends Component {
                 </div>
 
                 <div className='input-group'>
-                    <NavLink exact to="/">
-                        <button className='confirm-btn' onClick={this.handleSignIn}>Sign In</button>
+                    <button className='signin-btn' onClick={this.handleSignIn}>Sign In</button>
+                    <NavLink to="/signup">
+                        <button className='signup-btn'>Sign Up</button>
                     </NavLink>
                 </div>
             </form>

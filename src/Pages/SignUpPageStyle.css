@@ -25,9 +25,20 @@ form {
     height: 7em;
 }
 
-.confirm-btn {
-    display: block;
-    margin: auto;
+.signin-btn{
+    float: left;
+    margin-right: 0;
+    margin-left: 5%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.signup-btn {
+    float: right;
+    margin-right: 5%;
+    margin-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .input-title {
@@ -38,24 +49,34 @@ form {
 .input-group {
    margin-top: 1em;
    margin-bottom: 1em;
+   min-height: 36px;
 }
 
 @media (min-width: 598px) {
     .signup-input {
-        width: 60%;
+        width: 100%;
     }
 
     .input-title {
-        margin-left: 20%;
+        margin-left: 0;
+    }
+
+    .input-group {
+        max-width: 40%;
+        margin-left: 30%;
+        margin-right: 30%;
+        margin-bottom: 5%;
     }
 }
 
 @media (min-width: 900px) {
-    .signup-input {
-        width: 40%;
+    .input-group {
+        max-width: 30%;
+        margin-left: 35%;
+        margin-right: 35%;
     }
 
-    .input-title {
-        margin-left: 30%;
+    .signup-input {
+        width: 100%;
     }
 }
