@@ -1,11 +1,14 @@
 import React from 'react';
 import YouTube from 'react-youtube';
 import {Component} from 'react';
+import firebase from 'firebase/app';
+import withSizes from 'react-sizes';
 import 'whatwg-fetch';
 
 const VIDEO_BATCH_AMOUNT = 50;
-const API_KEY = 'AIzaSyD86p8C2PzxAfn6vGysciDbUW9Hg_Q3ang';
-                  /*  'AIzaSyBy50_Fpj1Q9vbPgw4vQmdSj_Lf9RtHmbc'; */
+const API_KEY = /* 'AIzaSyD86p8C2PzxAfn6vGysciDbUW9Hg_Q3ang'; */
+                   /* 'AIzaSyBy50_Fpj1Q9vbPgw4vQmdSj_Lf9RtHmbc'; */
+                   'AIzaSyCIJZrCeXh1uyVHvclmoFDMAx8kKVETx_M';
 const FIND_VIDEO = 'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=' + VIDEO_BATCH_AMOUNT + '&type=video&videoEmbeddable=true&order=date&key=' + API_KEY;
 const GET_VIEW_COUNT = 'https://www.googleapis.com/youtube/v3/videos?part=statistics&maxResults=' + VIDEO_BATCH_AMOUNT + '&key=' + API_KEY;
 
@@ -27,14 +30,16 @@ let videoCategoryIds = [{'name':'Film & Animation', 'id':1},
 
 let today = new Date();
 
-export class Popup extends Component {
+class Popup extends Component {
     render() {
         let focusStyle = {display: this.props.popupDisplay};
         let containerStyle = {width: "100%", height: "100%"};
         return(
             <div className="focus" style={focusStyle}>
                 <div className="flex-container" style={containerStyle}>
-                    <Player close={this.props.close} cardName={this.props.cardName} showing={(this.props.popupDisplay == 'block')} />
+                    <Player close={this.props.close} cardName={this.props.cardName} showing={(this.props.popupDisplay == 'block')}
+                        currentUsername={this.props.currentUsername} savedVideosCallback={() => this.props.savedVideosCallback() } 
+                        width={this.props.width} height={this.props.height} />
                 </div>
             </div>
         );
@@ -53,7 +58,8 @@ class Player extends Component {
             videos: [],
             minViewCount: 500,
             height: window.innerHeight,
-            width: window.innerWidth
+            width: window.innerWidth,
+            saved: false
         };
     }
 
@@ -79,8 +85,11 @@ class Player extends Component {
             }
             url += data.items[data.items.length - 1].id.videoId;
 
+            let rawVideos = data.items;
+
             this.setState({
-                nextPage: data.nextPageToken
+                nextPage: data.nextPageToken,
+                rawVideos: rawVideos
             });
 
             return fetch(url);
@@ -113,6 +122,8 @@ class Player extends Component {
                 error: true
             });
         });
+
+        this.checkIfSaved();
     } 
 
     //Removes videos with more than {this.state.viewCount} views from {this.state.videos}
@@ -142,6 +153,98 @@ class Player extends Component {
             videos: newVideoList,
             videoId: nextVideoId
         });
+
+        this.checkIfSaved();
+    }
+
+    saveVideo = () => {
+        if(this.props.currentUsername != 'Guest') {
+            let curVideoId = '';
+            let videoIndex = -1;
+            while(curVideoId != this.state.videoId) {
+                videoIndex++;
+                curVideoId = this.state.rawVideos[videoIndex].id.videoId;
+            }
+
+            if(this.state.rawVideos[videoIndex].snippet.title.length > 26) {
+                let title = this.state.rawVideos[videoIndex].snippet.title;
+                this.state.rawVideos[videoIndex].snippet.title = title.substring(0, 26);
+            }
+
+            let newLike = {
+                videoId: this.state.videoId,
+                videoTitle: this.state.rawVideos[videoIndex].snippet.title,
+                videoImg: this.state.rawVideos[videoIndex].snippet.thumbnails
+            };
+
+            let databaseRef = firebase.database().ref('likes/' + this.props.currentUsername);
+            databaseRef.once('value')
+                .then((snapshot) => {
+                    return snapshot.val();
+                })
+                .then((val) => {
+                    let likedVideos = {};
+                    if(val != null) {
+                        likedVideos = val;
+                    }
+
+                    let existingVideoKey = '';
+                    Object.keys(likedVideos).forEach((videoKey) => {
+                        if(likedVideos[videoKey].videoId == this.state.videoId) {
+                            existingVideoKey = videoKey
+                        }
+                    });
+
+                    if(existingVideoKey == '') {
+                        this.setState({
+                            saved: true
+                        });
+                        databaseRef.push(newLike);
+                    } else {
+                        this.setState({
+                            saved: false
+                        })
+                        firebase.database().ref('likes/' + this.props.currentUsername + '/' + existingVideoKey).set(null);
+                    }
+                });
+        }
+    }
+
+    handleSaveClick = () => {
+        this.saveVideo();
+        this.props.savedVideosCallback();
+    }
+
+    checkIfSaved = () => {
+        console.log(this.state.saved);
+        let databaseRef = firebase.database().ref('likes/' + this.props.currentUsername);
+        databaseRef.once('value')
+            .then((snapshot) => {
+                return snapshot.val();
+            })
+            .then((val) => {
+                let likedVideos = {};
+                if(val != null) {
+                    likedVideos = val;
+                }
+
+                let existingVideoKey = '';
+                Object.keys(likedVideos).forEach((videoKey) => {
+                    if(likedVideos[videoKey].videoId == this.state.videoId) {
+                        existingVideoKey = videoKey
+                    }
+                });
+
+                if(existingVideoKey == '') {
+                    this.setState({
+                        saved: false
+                    });
+                } else {
+                    this.setState({
+                        saved: true
+                    });
+                }
+            });
     }
     
     componentDidMount() {
@@ -183,11 +286,16 @@ class Player extends Component {
                 </div>
             );
         } else {
-            let height = window.innerHeight * 0.8;
-            let width = window.innerWidth;
-            if(this.state.width > 598) {
+            let height = this.props.height * 0.8;
+            let width = this.props.width;
+            if(this.props.width > 598) {
                 width *= 0.7;
-                height = window.innerHeight * 0.7;
+                height = this.props.height * 0.7;
+            }
+
+            let saveButtonText = 'Save';
+            if(this.state.saved) {
+                saveButtonText = 'Unsave';
             }
 
             return(
@@ -195,17 +303,19 @@ class Player extends Component {
                     <div className="flex-item" id="player">
                         <Video height={height} width={width} videoId={this.state.videoId} showing={this.props.showing} />
                     </div>
-                    <button className="new-vid" onClick={this.getNextVideoId}>New Video</button>
-                    <button className="close-vid" onClick={this.props.close}>Close</button>
+                    <div className="flex-container">
+                        <button className="flex-item player-btn" onClick={this.props.close}>Close</button>
+                        <button className="flex-item player-btn" onClick={this.handleSaveClick}>{saveButtonText}</button>
+                        <button className="flex-item player-btn" onClick={this.getNextVideoId}>Next</button>
+                    </div>
                 </div>
             );
         }
     }
 }
 
-class Video extends Component {
+export class Video extends Component {
     whenReady(event) {
-        // access to player in all event handlers via event.target
         event.target.playVideo();
     }
 
@@ -240,3 +350,10 @@ class ErrorMessage extends Component {
         );
     }
 }
+
+const mapSizesToProps = (sizes) => ({
+    width: sizes.width,
+    height: sizes.height
+});
+
+export default withSizes(mapSizesToProps)(Popup);

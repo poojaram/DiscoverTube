@@ -2,19 +2,16 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
   margin: 0;
-}
-
-/***** Sign in page *****/
-
-.form-group input {
-  float: right;
-}
-
-.form-group .sign-in {
-  float: right;
+  min-height: 100%;
+  padding-bottom: 223px;
+  position: relative;
 }
 
 /***** Navigation bar *****/
@@ -27,7 +24,7 @@ body {
 }
 
 input:checked ~ .navbar-content {
-  height: 230px;
+  height: 270px;
 }
 
 nav {
@@ -38,7 +35,7 @@ nav {
   top: 0;
   left: 0;
   background-color: #c4302b;
-  display: inline-block;
+  display: block;
 }
 
 ul {
@@ -48,11 +45,43 @@ ul {
 
 a {
   text-decoration: none;
+  color: white;
+}
+
+.username {
+  float: left;
+  font-size: 2em;
+  font-weight: bold;
+  margin: 0;
+  padding-bottom: 0.4em;
+  padding-top: 0.4em;
+  padding-left: 0.25em;
+  padding-right: 0;
+
+}
+
+.username p {
+  margin: 0;
+  display: inline-block;
+
   font-family: 'Amatic SC', cursive;
-  color: black;
+}
+
+.signout-btn {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 0;
+  margin-left: 1em;
+  background-color: #9e2722;
+  float: right;
+}
+
+.signup-btn {
+  float: left;
 }
 
 .navbar a {
+  font-family: 'Amatic SC', cursive;
   display: block;
   font-size: 2em;
   color: black;
@@ -95,14 +124,13 @@ h1, h2, h3 {
 }
 
 h1 {
-  margin-top: 1.5em;
   margin-bottom: 0;
   text-align: center;
   font-size: 4em;
+  margin-top: 1em;
 }
 
 h2 {
-  margin-top: 1em;
   margin-right: 0;
   margin-left: 0;
   margin-bottom: 0;
@@ -111,7 +139,7 @@ h2 {
 }
 
 .title {
-  height: 400px;
+  height: 200px;
   text-align: center;
 }
 
@@ -124,6 +152,17 @@ header {
 
 .sub-title {
   margin-top: 0;
+}
+
+.div-buttons {
+  padding-top: 1em;
+  width: 80%;
+  margin: auto;
+  padding-bottom: 10em;
+}
+
+.signin-btn {
+  float: right;
 }
 
 /***** Topic Cards *****/
@@ -170,12 +209,19 @@ h3 {
 
 /***** About section *****/
 
-.descr h2 {
-  margin-top: 2em;
+#descr h1 {
+  margin-bottom: 0.5em;
 }
 
-.descr p {
-  margin: 1em;
+#descr h2 {
+  margin-top: 1.5em;
+  border: 3px solid #c4302b;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+#descr p {
+  margin: 1.5em;
   line-height: 2;
 }
 
@@ -187,8 +233,13 @@ h3 {
 
 footer {
   background-color: #c4302b;
-  padding: 0.5em;
+  /*padding: 0.5em;*/
   text-align: center;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
 }
 
 footer h3 {
@@ -252,6 +303,7 @@ iframe.flex-item {
 #player {
   margin: 0;
   height: 80%;
+  border-width: 0px;
 }
 
 .loading {
@@ -307,6 +359,12 @@ button {
   float: right;
 }
 
+.player-btn.flex-item {
+  flex: 0 0 0;
+  height: auto;
+  border-width: 0px;
+}
+
 button:hover {
   background-color: rgb(240, 59, 53);
 }
@@ -315,9 +373,23 @@ button:active {
   background-color: #8b1e27;
 }
 
+/***** Saved Videos Page *****/
+
+
+
 /***** Larger Screen Style *****/
 @media (min-width: 598px) {
   /***** Navigation bar *****/
+  .username {
+    float: right;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .username p {
+    padding-top: 0.25em;
+  }
+
   .navbar label {
       display: none;
   }
@@ -345,6 +417,10 @@ button:active {
       height: 1200px;
   }
 
+  .title {
+    height: auto;
+  }
+
   .title h1 {
       font-size: 10em;
       margin-top: 0.75em;
@@ -352,6 +428,27 @@ button:active {
 
   .sub-title {
       font-size: 2em;
+  }
+
+  .div-buttons {
+    width: 400px;
+  }
+
+  /***** Watch Section *****/
+  #watch h1 {
+    padding-top: 0.5em;
+    font-size: 6em;
+  }
+
+  /***** About section *****/
+  #descr p {
+    margin-left: 5em;
+    margin-right: 5em;
+  }
+
+  #descr h1 {
+    padding-top: 0.5em;
+    font-size: 6em;
   }
 
   /***** interactive *****/
@@ -363,6 +460,12 @@ button:active {
   .flex-item#player {
       flex: 0 0 70%;
       height: 70%;
+  }
+
+  /***** Saved Videos Page *****/
+  #saved h1 {
+    padding-top: 0.5em;
+    font-size: 6em;
   }
 }
 
