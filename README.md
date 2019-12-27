@@ -1,5 +1,10 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+## Open the Website on your browser:
+
+Click on [https://discovertube-cd88d.firebaseapp.com/](https://discovertube-cd88d.firebaseapp.com/) to view in the bowser.
+
 ## Available Scripts
 
 In the project directory, you can run:
